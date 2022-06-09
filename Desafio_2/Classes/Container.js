@@ -44,7 +44,7 @@ class Container {
     try {
       const parsedAlbums = await this.getAll();
       const isPresent = parsedAlbums.find((album) => album.id === id);
-      return isPresent;
+      return isPresent ? isPresent : null;
     } catch (error) {
       console.log(`Hubo un error al obtener un álbum por su id: ${error}`);
     }
