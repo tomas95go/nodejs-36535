@@ -1,8 +1,8 @@
 class Album {
-  constructor(id, nombre, precio, img, artist, release_year) {
+  constructor(id, name, price, img, artist, release_year) {
     this.id = id;
-    this.nombre = nombre;
-    this.precio = precio;
+    this.name = name;
+    this.price = price;
     this.img = img;
     this.artist = artist;
     this.release_year = release_year;

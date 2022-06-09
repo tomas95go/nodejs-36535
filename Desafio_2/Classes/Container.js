@@ -11,7 +11,7 @@ class Container {
         this.fs.appendFile(this.file, JSON.stringify([]));
       }
     } catch (error) {
-      console.log(`Hubo un error: ${error}`);
+      console.log(`Hubo un error al inicializar el archivo: ${error}`);
     }
   }
 
@@ -20,7 +20,7 @@ class Container {
       const hasContent = await this.fs.readFile(this.file, `utf-8`);
       return hasContent;
     } catch (error) {
-      console.log(`Hubo un error: ${error}`);
+      console.log(`Hubo un error al chequear el contenido: ${error}`);
     }
   }
   async save(album) {
@@ -31,12 +31,12 @@ class Container {
         const parsedAlbums = await this.getAll();
         parsedAlbums.push(album);
         this.fs.writeFile(this.file, JSON.stringify(parsedAlbums));
-        console.log(`Ha agregado el id: ${id} a la lista de albums`);
+        return `Ha agregado el id: ${id} a la lista de álbumes`;
       } else {
-        console.log(`El id: ${id}, ya existe`);
+        return `El álbum con id: ${id}, ya existe`;
       }
     } catch (error) {
-      console.log(`Hubo un error: ${error}`);
+      console.log(`Hubo un error al guardar un álbum en el archivo: ${error}`);
     }
   }
 
@@ -46,7 +46,7 @@ class Container {
       const isPresent = parsedAlbums.find((album) => album.id === id);
       return isPresent;
     } catch (error) {
-      console.log(`Hubo un error: ${error}`);
+      console.log(`Hubo un error al obtener un álbum por su id: ${error}`);
     }
   }
 
@@ -56,7 +56,7 @@ class Container {
       const parsedAlbums = JSON.parse(albums);
       return parsedAlbums;
     } catch (error) {
-      console.log(`Hubo un error: ${error}`);
+      console.log(`Hubo un error al obtener todos los álbumes: ${error}`);
     }
   }
 
@@ -65,26 +65,29 @@ class Container {
       const isPresent = await this.getById(id);
       if (isPresent) {
         const parsedAlbums = await this.getAll();
-        const albumIndex = parsedAlbums.findIndex((album) => album.id);
+        const albumIndex = parsedAlbums.findIndex((album) => album.id === id);
         parsedAlbums.splice(albumIndex, 1);
+        console.log(`Se ha eliminado el álbum con id: ${id}`);
         this.fs.writeFile(this.file, JSON.stringify(parsedAlbums));
       }
     } catch (error) {
-      console.log(`Hubo un error: ${error}`);
+      console.log(`Hubo un error al eliminar un álbum por su id: ${error}`);
     }
   }
 
   async deleteAll() {
     try {
       const parsedAlbums = await this.getAll();
+      const preDeletedQuantity = parsedAlbums.length;
       if (parsedAlbums.length > 0) {
         parsedAlbums.length = 0;
         this.fs.writeFile(this.file, JSON.stringify(parsedAlbums));
+        console.log(`Se han eliminado: ${preDeletedQuantity} álbumes`);
       } else {
         console.log(`Nada para borrar...`);
       }
     } catch (error) {
-      console.log(`Hubo un error: ${error}`);
+      console.log(`Hubo un error al eliminar todos los álbumes: ${error}`);
     }
   }
 }
