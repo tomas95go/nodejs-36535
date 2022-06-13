@@ -1,0 +1,27 @@
+{
+  "name": "desafio_3",
+  "version": "1.0.0",
+  "description": "Desafio_3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomas95go/nodejs-36535.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Git",
+    "Express"
+  ],
+  "author": "Tomas Gonzalez Oviedo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomas95go/nodejs-36535/issues"
+  },
+  "homepage": "https://github.com/tomas95go/nodejs-36535#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
