@@ -23,5 +23,8 @@
   "homepage": "https://github.com/tomas95go/nodejs-36535#readme",
   "dependencies": {
     "express": "^4.18.1"
+  },
+  "engines": {
+    "node": "16.13.2"
   }
 }
