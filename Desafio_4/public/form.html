@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuevo producto</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+  </head>
+  <body class="bg-secondary">
+    <div
+      class="container d-flex justify-content-center align-items-center bg-secondary vh-100"
+    >
+      <div class="col-4">
+        <div class="card text-bg-dark mb-3">
+          <div class="card-header text-center">Agregar nuevo producto</div>
+          <div class="card-body">
+            <form id="new-album-form">
+              <div class="mb-3">
+                <label for="album-artist" class="form-label">Artista</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="album-artist"
+                  name="album-artist"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="album-name" class="form-label">Álbum</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="album-name"
+                  name="album-name"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="album-price" class="form-label">Precio</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="album-price"
+                  name="album-price"
+                  min="0"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="album-img" class="form-label">URL Imagen</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="album-img"
+                  name="album-img"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="album-release-year" class="form-label"
+                  >Año de lanzamiento</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="album-release-year"
+                  name="album-release-year"
+                  min="0"
+                />
+              </div>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script>
+      //$ es utilizado para distinguir elementos del DOM de elementos JavaScript
+      const $form = document.getElementById("new-album-form");
+      $form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const form = new FormData(event.target);
+        const newAlbum = {
+          name: form.get("album-artist"),
+          price: form.get("album-price"),
+          img: form.get("album-img"),
+          artist: form.get("album-artist"),
+          release_year: form.get("album-release-year"),
+        };
+        const response = await fetch(`http://localhost:8080/api/productos`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          body: JSON.stringify(newAlbum),
+        });
+        const data = await response.json();
+        Toastify({
+          text: `${data.message}. Id: ${data.newProducto.id}`,
+          duration: 3000,
+        }).showToast();
+        $form.reset();
+      });
+    </script>
+  </body>
+</html>
