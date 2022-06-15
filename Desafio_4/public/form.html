@@ -88,18 +88,28 @@
       src="https://cdn.jsdelivr.net/npm/toastify-js"
     ></script>
     <script>
+      class Album {
+        constructor(name, price, img, artist, release_year) {
+          this.name = name;
+          this.price = price;
+          this.img = img;
+          this.artist = artist;
+          this.release_year = release_year;
+        }
+      }
       //$ es utilizado para distinguir elementos del DOM de elementos JavaScript
       const $form = document.getElementById("new-album-form");
       $form.addEventListener("submit", async (event) => {
         event.preventDefault();
         const form = new FormData(event.target);
-        const newAlbum = {
-          name: form.get("album-artist"),
-          price: form.get("album-price"),
-          img: form.get("album-img"),
-          artist: form.get("album-artist"),
-          release_year: form.get("album-release-year"),
-        };
+
+        const newAlbum = new Album(
+          form.get("album-artist"),
+          form.get("album-price"),
+          form.get("album-img"),
+          form.get("album-artist"),
+          form.get("album-release-year")
+        );
         const response = await fetch(`http://localhost:8080/api/productos`, {
           method: "POST",
           headers: {
