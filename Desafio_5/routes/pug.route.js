@@ -2,7 +2,7 @@ const express = require("express");
 const pugRouter = express.Router();
 
 pugRouter.get("/", (request, response) => {
-  response.send(`Hola desde pugRouter`);
+  response.render(`index.pug`);
 });
 
 module.exports = pugRouter;
