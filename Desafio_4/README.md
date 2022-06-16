@@ -1,4 +1,3 @@
-
 # Instrucciones
 
 Por favor, leer antes de ejecutar.
@@ -7,24 +6,26 @@ Por favor, leer antes de ejecutar.
 
 1. Clonar el repositorio.
 2. Dirigirse a la carpeta Desafio_4.
-4. Ejecutar "npm install" para instalar las dependecias.
-3. Ejecutar "npm start".
+3. Ejecutar "npm install" para instalar las dependecias.
+4. Ejecutar "npm start".
 
 ## Listado de los diferentes endpoints
 
-* REST:
-| HTTP    | ENDPOINT                               | RESULTADO              |
-| ------- | -------------------------------------- | ---------------------- |
-| GET     | http://localhost:8080/api/productos    | Listado de álbum       |
-| GET     | http://localhost:8080/api/productos/1  | Álbum individual       |
-| POST    | http://localhost:8080/api/productos/   | Agrega álbum           |
-| PUT     | http://localhost:8080/api/productos/1  | Actualiza álbum        |
-| DELETE  | http://localhost:8080/api/productos/8  | Borrado (lógico) álbum |
+- REST:
 
-* HTML:
-| HTTP    | ENDPOINT                                     | RESULTADO              |
-| ------- | -------------------------------------------- | ---------------------- |
-| GET     | http://localhost:8080/productos/form.html    | Formulario nuevo álbum |
+| HTTP   | ENDPOINT                              | RESULTADO              |
+| ------ | ------------------------------------- | ---------------------- |
+| GET    | http://localhost:8080/api/productos   | Listado de álbum       |
+| GET    | http://localhost:8080/api/productos/1 | Álbum individual       |
+| POST   | http://localhost:8080/api/productos/  | Agrega álbum           |
+| PUT    | http://localhost:8080/api/productos/1 | Actualiza álbum        |
+| DELETE | http://localhost:8080/api/productos/8 | Borrado (lógico) álbum |
+
+- HTML:
+
+| HTTP | ENDPOINT                                  | RESULTADO              |
+| ---- | ----------------------------------------- | ---------------------- |
+| GET  | http://localhost:8080/productos/form.html | Formulario nuevo álbum |
 
 ## Ejemplo de datos para agregar
 
