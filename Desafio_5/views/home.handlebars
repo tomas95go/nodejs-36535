@@ -1,1 +1,35 @@
-<h1>Example App: Home</h1>
+<div
+      class="container d-flex justify-content-center align-items-center bg-secondary vh-100"
+    >
+      <div class="col-6">
+        <div class="card bg-dark bg-gradient text-white">
+          <div class="card-header bg-dark text-center">
+            <strong>Lista de productos</strong>
+          </div>
+          <div class="card-body">
+            {{#if albumsReady }}
+                <table class="table table-bordered text-white">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Foto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each albumsReady }}
+                            <tr class="text-center">
+                                <td> {{ name }} </td>
+                                <td> {{ price }} </td>
+                                <td class="w-25 h-25"> <img class="img-thumbnail" src="{{ img }}" alt="{{ name }}" /> </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            {{else}}
+                <p> No hay productos </p>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
