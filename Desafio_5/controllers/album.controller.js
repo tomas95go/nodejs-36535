@@ -14,6 +14,15 @@ function getAllPug(request, response) {
     albums: albums,
   });
 }
+
+function getAllEJS(request, response) {
+  response.render(`index.ejs`, {
+    title: `Productos`,
+    esLista: true,
+    esFormulario: false,
+    albums: albums,
+  });
+}
 function getNewAlbumFormPug(request, response) {
   try {
     response.status(200).render(`index.pug`, {
@@ -37,6 +46,19 @@ function getNewAlbumFormHandleBars(request, response) {
   }
 }
 
+function getNewAlbumFormEJS(request, response) {
+  try {
+    response.status(200).render(`index.ejs`, {
+      title: "Productos",
+      esFormulario: true,
+      esLista: false,
+    });
+  } catch (error) {
+    response.status(400).json({
+      message: `Hubo un error al traer el formulario nuevo álbum`,
+    });
+  }
+}
 function add(request, response) {
   try {
     const newAlbumRequest = request.body;
@@ -56,7 +78,7 @@ function add(request, response) {
       release_year: release_year,
     };
     albums.push(newAlbum);
-    response.status(201).redirect(`/pug/`);
+    response.status(201).redirect(`/ejs/`);
   } catch (error) {
     response.status(404).json({
       message: `Hubo un error al crear al álbum`,
@@ -67,7 +89,9 @@ function add(request, response) {
 module.exports = {
   getAll,
   getAllPug,
+  getAllEJS,
   add,
   getNewAlbumFormPug,
   getNewAlbumFormHandleBars,
+  getNewAlbumFormEJS,
 };

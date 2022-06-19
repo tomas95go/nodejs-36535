@@ -1,0 +1,38 @@
+<div
+  class="container d-flex justify-content-center align-items-center bg-secondary vh-100"
+>
+  <div class="col-6">
+    <div class="card bg-dark bg-gradient text-white">
+      <div class="card-header bg-dark text-center">
+        <strong>Lista de productos</strong>
+      </div>
+      <div class="card-body">
+        <% if (albums.length > 0) { %>
+        <table class="table table-bordered text-white">
+          <thead>
+            <tr class="text-center">
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Foto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% albums.forEach((album) => { %>
+            <tr class="text-center">
+              <td><%- album.name %></td>
+              <td><%- album.price %></td>
+              <td class="w-25 h-25">
+                <img class="img-thumbnail" src="<%= album.img %>" alt="<%=
+                album.name %>"
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+        <% } else { %>
+        <p>No hay productos</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
