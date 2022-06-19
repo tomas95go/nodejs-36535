@@ -1,0 +1,19 @@
+.container.d-flex.justify-content-center.align-items-center.bg-secondary.vh-100
+  .col-6
+    .card.bg-dark.bg-gradient.text-white
+      .card-header.bg-dark.text-center
+        strong Lista de productos
+      .card-body
+        table.table.table-bordered.text-white
+          thead
+            tr.text-center
+              th Nombre
+              th Precio
+              th Foto
+          tbody
+            each album in albums
+                tr.text-center
+                td= album.name 
+                td= album.price
+                td.w-25.h-25
+                    img.img-thumbnail(src=album.img alt=album.name)
