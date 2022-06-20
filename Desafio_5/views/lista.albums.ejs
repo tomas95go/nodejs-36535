@@ -3,8 +3,11 @@
 >
   <div class="col-6">
     <div class="card bg-dark bg-gradient text-white">
-      <div class="card-header bg-dark text-center">
+      <div
+        class="card-header bg-dark text-center d-flex justify-content-between align-items-center"
+      >
         <strong>Lista de productos</strong>
+        <a class="btn btn-primary" href="/ejs/" role="button">Nuevo producto</a>
       </div>
       <div class="card-body">
         <% if (albums.length > 0) { %>

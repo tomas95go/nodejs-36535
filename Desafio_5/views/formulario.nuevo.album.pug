@@ -1,8 +1,9 @@
 .container.d-flex.justify-content-center.align-items-center.bg-secondary.vh-100
   .col-4
     .card.bg-dark.bg-gradient.text-white
-      .card-header.bg-dark.text-center
+      .card-header.bg-dark.text-center.d-flex.justify-content-between.align-items-center
         strong Agregar nuevo producto
+        a.btn.btn-primary(href='/pug/productos' role='button') Lista de productos
       .card-body
         form(action="/pug/productos", method="post") 
           .mb-3
@@ -22,6 +23,8 @@
           .mb-3
             label.form-label(for='album-release-year') A&ntilde;o de lanzamiento
             input#album-release-year.form-control(type='number' name='album-release-year' min='0')
+          .mb-3.invisible
+            input.form-control(type='text' value='pug' name='template-engine')
           .d-grid.gap-2.col-6.mx-auto
             button.btn.btn-dark.border.border-light(type='submit')
               strong Submit

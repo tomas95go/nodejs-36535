@@ -59,6 +59,16 @@ function getNewAlbumFormEJS(request, response) {
     });
   }
 }
+
+function determineRedirect(engine, response) {
+  if (engine === "ejs") {
+    response.status(201).redirect(`/ejs/`);
+  } else if (engine === "handlebars") {
+    response.status(201).redirect(`/handlebars/`);
+  } else {
+    response.status(201).redirect(`/pug/`);
+  }
+}
 function add(request, response) {
   try {
     const newAlbumRequest = request.body;
@@ -68,6 +78,7 @@ function add(request, response) {
       "album-price": price,
       "album-img": img,
       "album-release-year": release_year,
+      "template-engine": engine,
     } = newAlbumRequest;
 
     const newAlbum = {
@@ -78,7 +89,7 @@ function add(request, response) {
       release_year: release_year,
     };
     albums.push(newAlbum);
-    response.status(201).redirect(`/ejs/`);
+    determineRedirect(engine, response);
   } catch (error) {
     response.status(404).json({
       message: `Hubo un error al crear al álbum`,
