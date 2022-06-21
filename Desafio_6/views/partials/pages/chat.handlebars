@@ -1,6 +1,6 @@
 <div class="col">
   <div class="row d-flex justify-content-center align-content-center">
-    <div class="col-6">
+    <div class="col">
       <div class="card border-primary mb-3">
         <div class="card-header text-center">Carga tu email</div>
         <div class="card-body">
@@ -22,16 +22,18 @@
     </div>
   </div>
   <div class="row d-flex justify-content-center align-content-center">
-    <div class="col-6">
+    <div class="col">
       <div class="card border-primary mb-3">
         <div class="card-header text-center">Centro de mensajes</div>
         <div class="card-body">
           <ul id="chat-messages" class="list-group"></ul>
           <form id="new-message-form" action="" class="d-flex">
             <input
+              id="new-message-input"
               class="form-control me-sm-2"
               type="text"
               placeholder="Mensaje"
+              autocomplete="off"
             />
             <button
               id="new-message-btn"

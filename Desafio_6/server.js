@@ -1,7 +1,11 @@
 const express = require("express");
 const { create } = require("express-handlebars");
-
+const http = require("http");
 const app = express();
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
 const hbs = create({
   partialsDir: ["views/partials/"],
 });
@@ -23,6 +27,13 @@ app.get("/chat", (req, res) => {
   res.render("partials/pages/chat");
 });
 
-app.listen(PORT, () => {
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.on("chat message", (msg) => {
+    io.emit("chat message", msg);
+  });
+});
+
+server.listen(PORT, () => {
   console.log(`Corriendo en el puerto: ${PORT}. URL: http://localhost:${PORT}`);
 });
