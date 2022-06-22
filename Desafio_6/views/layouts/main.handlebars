@@ -15,61 +15,65 @@
     <script>
         const socket = io();
 
-        /*const $newEmailForm = document.getElementById("new-email-form");
+        const $newEmailForm = document.getElementById("new-email-form");
         const $newEmailInput = document.getElementById("email-input");
         const $email = document.getElementById("user-email-display");
 
-        $newEmailForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            if($newEmailInput.value){
-                $email.textContent = $newEmailInput.value;
-                $newEmailInput.value = '';
-                $newEmailInput.setAttribute("disabled", "true");
-            }
-        });
+        if($newEmailForm){
 
-        const $chatMessage = document.getElementById("chat-messages");
-        const $newMessageForm = document.getElementById("new-message-form"); 
-        const $newMessageInput = document.getElementById("new-message-input");
-        $newMessageForm.addEventListener('submit', function(e) {
+            $newEmailForm.addEventListener("submit", (e) => {
                 e.preventDefault();
-                if ($newMessageInput.value) {
-                const chatMessage = {
-                    email: $email.textContent,
-                    text: $newMessageInput.value
+                if($newEmailInput.value){
+                    $email.textContent = $newEmailInput.value;
+                    $newEmailInput.value = '';
+                    $newEmailInput.setAttribute("disabled", "true");
                 }
-                socket.emit('chat message', chatMessage);
-                $newMessageInput.value = '';
-            }
-        });
+            });
 
-        socket.on('chat message', function(chatMessage) {
-            const {email, message, date} = chatMessage;
-            const $newMessage = document.createElement('li');
-            $newMessage.classList.add('list-group-item');
+            const $chatMessage = document.getElementById("chat-messages");
+            const $newMessageForm = document.getElementById("new-message-form"); 
+            const $newMessageInput = document.getElementById("new-message-input");
+            $newMessageForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if ($newMessageInput.value) {
+                    const chatMessage = {
+                        email: $email.textContent,
+                        text: $newMessageInput.value
+                    }
+                    socket.emit('chat message', chatMessage);
+                    $newMessageInput.value = '';
+                }
+            });
 
-            $newMessageEmail = document.createElement('span');
-            $newMessageEmail.classList.add('text-info', 'fw-bold');
-            $newMessageEmail.textContent = `${email} `;
-            $newMessage.appendChild($newMessageEmail);
+            socket.on('chat message', function(chatMessage) {
+                const {email, message, date} = chatMessage;
+                const $newMessage = document.createElement('li');
+                $newMessage.classList.add('list-group-item');
 
-            $newMessageDate = document.createElement('span');
-            $newMessageDate.classList.add('text-muted');
-            $newMessageDate.textContent = `[${date}]: `;
-            $newMessage.appendChild($newMessageDate);
+                $newMessageEmail = document.createElement('span');
+                $newMessageEmail.classList.add('text-info', 'fw-bold');
+                $newMessageEmail.textContent = `${email} `;
+                $newMessage.appendChild($newMessageEmail);
 
-            $newMessageText = document.createElement('span');
-            $newMessageText.classList.add('text-success', 'fst-italic');
-            $newMessageText.textContent = message;
-            $newMessage.appendChild($newMessageText);
+                $newMessageDate = document.createElement('span');
+                $newMessageDate.classList.add('text-muted');
+                $newMessageDate.textContent = `[${date}]: `;
+                $newMessage.appendChild($newMessageDate);
 
-            $chatMessage.appendChild($newMessage);
+                $newMessageText = document.createElement('span');
+                $newMessageText.classList.add('text-success', 'fst-italic');
+                $newMessageText.textContent = message;
+                $newMessage.appendChild($newMessageText);
 
-            window.scrollTo(0, document.body.scrollHeight);
-        });*/
+                $chatMessage.appendChild($newMessage);
+
+                window.scrollTo(0, document.body.scrollHeight);
+            });
+        }
 
         const $newAlbumForm = document.getElementById('new-album-form');
-        $newAlbumForm.addEventListener('submit', (e) => {
+        if($newAlbumForm){
+            $newAlbumForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const form = new FormData(e.target);
             const newAlbum = {
@@ -81,11 +85,12 @@
             }
             socket.emit('new album', newAlbum);
             $newAlbumForm.reset();
-        });
+            });
 
-        socket.on('new album', (album) => {
-            console.log(album, 'front');
-        });
+            socket.on('new album', (album) => {
+                console.log(album, 'front');
+            });
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
