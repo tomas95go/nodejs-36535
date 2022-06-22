@@ -73,6 +73,53 @@
 
         const $newAlbumForm = document.getElementById('new-album-form');
         if($newAlbumForm){
+            
+            const getAllAlbums = async () => {
+                const response = await fetch(`http://localhost:8080/productos/list`);
+                const data = await response.json();
+                const { message , albums} = data;
+                if(albums.length){
+                    const $albumsTableBody = document.getElementById('albums-table-body');
+
+                    albums.forEach(album => {
+                        const $tr = document.createElement('tr');
+                        $tr.classList.add('text-center');
+                        const {album:name, price, img, artist, release_year:releaseYear } = album;
+                        
+                        const $tdAlbum = document.createElement('td');
+                        $tdAlbum.textContent = name;
+
+                        const $tdPrice = document.createElement('td');
+                        $tdPrice.textContent = price;
+
+                        const $tdImg = document.createElement('td');
+                        $tdImg.classList.add('w-25', 'h-25');
+                        const $img = document.createElement('img');
+                        $img.classList.add('img-thumbnail');
+                        $img.setAttribute('src', img);
+                        $img.setAttribute('alt', 'artist');
+                        $tdImg.appendChild($img);
+
+                        const $tdArtist = document.createElement('td');
+                        $tdArtist.textContent = artist;
+
+                        const $tdReleaseYear = document.createElement('td');
+                        $tdReleaseYear.textContent = releaseYear;
+
+                        $tr.appendChild($tdAlbum );
+                        $tr.appendChild($tdPrice);
+                        $tr.appendChild($tdImg);
+                        $tr.appendChild($tdArtist);
+                        $tr.appendChild($tdReleaseYear);
+
+                        $albumsTableBody.appendChild($tr);
+
+                    });
+                }
+            }
+
+            getAllAlbums();
+
             $newAlbumForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const form = new FormData(e.target);

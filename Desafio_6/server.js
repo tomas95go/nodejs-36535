@@ -30,7 +30,7 @@ app.get("/chat", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
+  console.log(`A new user conected: ${socket.id}`);
   socket.on("chat message", (message) => {
     const chatMessage = {
       email: message.email,
