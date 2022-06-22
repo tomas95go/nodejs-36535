@@ -88,7 +88,33 @@
             });
 
             socket.on('new album', (album) => {
-                console.log(album, 'front');
+
+                const albumAttributes = Object.entries(album);
+                const $albumsTableBody = document.getElementById('albums-table-body');
+                const $tr = document.createElement('tr');
+                $tr.classList.add('text-center');
+
+                albumAttributes.forEach(attribute => {
+
+                    const [key, value] = attribute;
+                    const $td = document.createElement('td');
+                    
+                    if(key === 'img'){
+                        $td.classList.add('w-25', 'h-25');
+                        const $img = document.createElement('img');
+                        $img.classList.add('img-thumbnail');
+                        $img.setAttribute('src', value);
+                        $img.setAttribute('alt', 'artist');
+                        $td.appendChild($img);
+                    } else {
+                        $td.textContent = value;
+                    }
+
+                    $tr.appendChild($td);
+                });
+
+                $albumsTableBody.appendChild($tr);
+
             });
         }
     </script>
