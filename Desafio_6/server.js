@@ -3,6 +3,7 @@ const { create } = require("express-handlebars");
 const http = require("http");
 const { Server } = require("socket.io");
 const fs = require("fs");
+const albumsRouter = require(`${__dirname}/routes/albums.route`);
 
 const app = express();
 const server = http.createServer(app);
@@ -17,12 +18,10 @@ app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 app.set("views", `${__dirname}/views`);
 
+app.use("/productos", albumsRouter);
+
 app.get("/", (req, res) => {
   res.render("partials/pages/home");
-});
-
-app.get("/productos", (req, res) => {
-  res.render("partials/pages/albums");
 });
 
 app.get("/chat", (req, res) => {
