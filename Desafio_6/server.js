@@ -39,6 +39,7 @@ io.on("connection", (socket) => {
     const chatMessage = {
       email: userEmail,
       message: message,
+      date: new Date().toLocaleString("es-AR"),
     };
     io.emit("chat message", chatMessage);
   });

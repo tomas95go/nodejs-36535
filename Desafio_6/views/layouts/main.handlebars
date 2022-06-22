@@ -41,10 +41,10 @@
         });
 
         socket.on('chat message', function(chatMessage) {
-            const {email, message} = chatMessage;
+            const {email, message, date} = chatMessage;
             const $newMessage = document.createElement('li');
             $newMessage.classList.add('list-group-item');
-            $newMessage.textContent = `${email}: ${message}`;
+            $newMessage.textContent = `${email} [${date}]: ${message}`;
             $chatMessage.appendChild($newMessage);
             window.scrollTo(0, document.body.scrollHeight);
         });
