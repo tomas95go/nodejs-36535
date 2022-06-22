@@ -1,9 +1,11 @@
 const express = require("express");
 const { create } = require("express-handlebars");
 const http = require("http");
+const { Server } = require("socket.io");
+const fs = require("fs");
+
 const app = express();
 const server = http.createServer(app);
-const { Server } = require("socket.io");
 const io = new Server(server);
 
 const hbs = create({
@@ -29,19 +31,28 @@ app.get("/chat", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("a user connected");
-  let userEmail = "";
-
-  socket.on("set email", (email) => {
-    userEmail = email;
-  });
-
   socket.on("chat message", (message) => {
     const chatMessage = {
-      email: userEmail,
-      message: message,
+      email: message.email,
+      message: message.text,
       date: new Date().toLocaleString("es-AR"),
     };
     io.emit("chat message", chatMessage);
+
+    const chat = fs.readFileSync(`${__dirname}/data/chat.json`, {
+      encoding: "utf8",
+    });
+    const parsedChat = JSON.parse(chat);
+    parsedChat.push(chatMessage);
+
+    const formattedChat = JSON.stringify(parsedChat);
+    fs.writeFile(`${__dirname}/data/chat.json`, formattedChat, (error) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Chat guardado");
+      }
+    });
   });
 });
 

@@ -22,7 +22,6 @@
         $newEmailForm.addEventListener("submit", (e) => {
             e.preventDefault();
             if($newEmailInput.value){
-                socket.emit('set email', $newEmailInput.value);
                 $email.textContent = $newEmailInput.value;
                 $newEmailInput.value = '';
                 $newEmailInput.setAttribute("disabled", "true");
@@ -35,7 +34,11 @@
         $newMessageForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 if ($newMessageInput.value) {
-                socket.emit('chat message', $newMessageInput.value);
+                const chatMessage = {
+                    email: $email.textContent,
+                    text: $newMessageInput.value
+                }
+                socket.emit('chat message', chatMessage);
                 $newMessageInput.value = '';
             }
         });
