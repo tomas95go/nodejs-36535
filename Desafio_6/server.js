@@ -4,6 +4,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const fs = require("fs");
 const albumsRouter = require(`${__dirname}/routes/albums.route`);
+const albumsController = require(`${__dirname}/controllers/albums.controller`);
 
 const app = express();
 const server = http.createServer(app);
@@ -52,6 +53,10 @@ io.on("connection", (socket) => {
         console.log("Chat guardado");
       }
     });
+  });
+
+  socket.on("new album", (album) => {
+    albumsController.add(album, io);
   });
 });
 

@@ -1,2 +1,93 @@
-<h1>Listado de albums + formulario</h1>
-<h2> {{albums}} </h2>
+<div class="row">
+  <div class="col">
+    <div class="card border-primary mb-3">
+      <div class="card-header text-center"><strong>Formulario nuevo álbum</strong></div>
+      <div class="card-body">
+        <form id="new-album-form">
+          <div class="mb-3">
+            <label for="album-artist" class="form-label">Artista</label>
+            <input
+              type="text"
+              class="form-control"
+              id="album-artist"
+              name="album-artist"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="album-name" class="form-label">Álbum</label>
+            <input
+              type="text"
+              class="form-control"
+              id="album-name"
+              name="album-name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="album-price" class="form-label">Precio</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">$</span>
+              <input
+                type="number"
+                class="form-control"
+                id="album-price"
+                name="album-price"
+                min="0"
+                step="0.01"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="album-img" class="form-label">URL Imagen</label>
+            <input
+              type="text"
+              class="form-control"
+              id="album-img"
+              name="album-img"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="album-release-year" class="form-label">Año de
+              lanzamiento</label>
+            <input
+              type="number"
+              class="form-control"
+              id="album-release-year"
+              name="album-release-year"
+              min="0"
+            />
+          </div>
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-dark border border-light" type="submit">
+              <strong>Submit</strong>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card border-primary mb-3">
+      <div class="card-header text-center">Álbumes</div>
+      <div class="card-body">
+        <table class="table table-bordered text-white">
+          <thead>
+            <tr class="text-center">
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Foto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center">
+              <td> a </td>
+              <td> b </td>
+              <td class="w-25 h-25">
+                <img class="img-thumbnail" src="a" alt="b" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,7 +15,7 @@
     <script>
         const socket = io();
 
-        const $newEmailForm = document.getElementById("new-email-form");
+        /*const $newEmailForm = document.getElementById("new-email-form");
         const $newEmailInput = document.getElementById("email-input");
         const $email = document.getElementById("user-email-display");
 
@@ -66,6 +66,25 @@
             $chatMessage.appendChild($newMessage);
 
             window.scrollTo(0, document.body.scrollHeight);
+        });*/
+
+        const $newAlbumForm = document.getElementById('new-album-form');
+        $newAlbumForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const form = new FormData(e.target);
+            const newAlbum = {
+                album: form.get("album-name"),
+                price: Number(form.get("album-price")),
+                img: form.get("album-img"),
+                artist: form.get("album-artist"),
+                release_year: form.get("album-release-year")
+            }
+            socket.emit('new album', newAlbum);
+            $newAlbumForm.reset();
+        });
+
+        socket.on('new album', (album) => {
+            console.log(album, 'front');
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
