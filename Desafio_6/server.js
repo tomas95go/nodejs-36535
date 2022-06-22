@@ -29,8 +29,18 @@ app.get("/chat", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("a user connected");
-  socket.on("chat message", (msg) => {
-    io.emit("chat message", msg);
+  let userEmail = "";
+
+  socket.on("set email", (email) => {
+    userEmail = email;
+  });
+
+  socket.on("chat message", (message) => {
+    const chatMessage = {
+      email: userEmail,
+      message: message,
+    };
+    io.emit("chat message", chatMessage);
   });
 });
 
