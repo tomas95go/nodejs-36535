@@ -44,8 +44,24 @@
             const {email, message, date} = chatMessage;
             const $newMessage = document.createElement('li');
             $newMessage.classList.add('list-group-item');
-            $newMessage.textContent = `${email} [${date}]: ${message}`;
+
+            $newMessageEmail = document.createElement('span');
+            $newMessageEmail.classList.add('text-info', 'fw-bold');
+            $newMessageEmail.textContent = `${email} `;
+            $newMessage.appendChild($newMessageEmail);
+
+            $newMessageDate = document.createElement('span');
+            $newMessageDate.classList.add('text-muted');
+            $newMessageDate.textContent = `[${date}]: `;
+            $newMessage.appendChild($newMessageDate);
+
+            $newMessageText = document.createElement('span');
+            $newMessageText.classList.add('text-success', 'fst-italic');
+            $newMessageText.textContent = message;
+            $newMessage.appendChild($newMessageText);
+
             $chatMessage.appendChild($newMessage);
+
             window.scrollTo(0, document.body.scrollHeight);
         });
     </script>
