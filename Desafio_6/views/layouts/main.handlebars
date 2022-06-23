@@ -20,8 +20,10 @@
         const $newEmailInput = document.getElementById("email-input");
         const $email = document.getElementById("user-email-display");
 
+        //Para saber si estoy en la pagina del chat
         if($newEmailForm){
 
+            //Obtener mail del usuario
             $newEmailForm.addEventListener("submit", (e) => {
                 e.preventDefault();
                 if($newEmailInput.value){
@@ -65,6 +67,7 @@
                             },
                         }).showToast();
                     } else {
+                        //Despues de validar. Mandar mensaje.
                         const chatMessage = {
                             email: $email.textContent,
                             text: $newMessageInput.value
@@ -74,6 +77,7 @@
                     }
             });
 
+            //Si el servidor emite un mensaje, lo muestro en la pantalla del chat.
             socket.on('chat message', function(chatMessage) {
                 const {email, message, date} = chatMessage;
                 const $newMessage = document.createElement('li');
@@ -101,15 +105,16 @@
         }
 
         const $newAlbumForm = document.getElementById('new-album-form');
+        //Para saber si estoy en la pagina de productos/albums.
         if($newAlbumForm){
-            
+            //Obtengo los albums disponibles.
             const getAllAlbums = async () => {
                 const response = await fetch(`http://localhost:8080/productos/list`);
                 const data = await response.json();
                 const { message , albums} = data;
                 if(albums.length){
                     const $albumsTableBody = document.getElementById('albums-table-body');
-
+                    //Muestro los albums/productos en la tabla.
                     albums.forEach(album => {
                         const $tr = document.createElement('tr');
                         $tr.classList.add('text-center');
