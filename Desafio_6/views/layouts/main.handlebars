@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>e-commerce</title>
     <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/darkly/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body class="bg-dark text-white">
 
@@ -35,14 +36,42 @@
             const $newMessageInput = document.getElementById("new-message-input");
             $newMessageForm.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    if ($newMessageInput.value) {
-                    const chatMessage = {
-                        email: $email.textContent,
-                        text: $newMessageInput.value
+                    if(!$email.textContent){
+                        Toastify({
+                            text: "Por favor, ingrese un email para continuar",
+                            duration: 3000,
+                            newWindow: true,
+                            close: true,
+                            gravity: "top", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: true, // Prevents dismissing of toast on hover
+                            className: "bg-danger",
+                            style: {
+                            background: "unset",
+                            },
+                        }).showToast();
+                    } else if (!$newMessageInput.value) {
+                        Toastify({
+                            text: "Por favor, ingrese un mensaje para continuar",
+                            duration: 3000,
+                            newWindow: true,
+                            close: true,
+                            gravity: "top", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: true, // Prevents dismissing of toast on hover
+                            className: "bg-danger",
+                            style: {
+                            background: "unset",
+                            },
+                        }).showToast();
+                    } else {
+                        const chatMessage = {
+                            email: $email.textContent,
+                            text: $newMessageInput.value
+                        }
+                        socket.emit('chat message', chatMessage);
+                        $newMessageInput.value = '';
                     }
-                    socket.emit('chat message', chatMessage);
-                    $newMessageInput.value = '';
-                }
             });
 
             socket.on('chat message', function(chatMessage) {
@@ -166,5 +195,6 @@
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html>
