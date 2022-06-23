@@ -1,6 +1,6 @@
 const albums = require("../models/albums.model");
 
-function getAll(request, response) {
+function getAlbumsView(request, response) {
   response.render("partials/pages/albums");
 }
 
@@ -23,7 +23,7 @@ function list(request, response) {
 }
 
 module.exports = {
-  getAll,
+  getAlbumsView,
   add,
   list,
 };

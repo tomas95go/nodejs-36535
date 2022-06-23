@@ -1,8 +1,7 @@
 const express = require("express");
+const homeController = require("../controllers/home.controller");
 const homeRouter = express.Router();
 
-homeRouter.get("/", (request, response) => {
-  res.render("partials/pages/home");
-});
+homeRouter.get("/", homeController.getHomeView);
 
 module.exports = homeRouter;
