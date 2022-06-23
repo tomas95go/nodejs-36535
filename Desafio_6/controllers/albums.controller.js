@@ -1,5 +1,9 @@
 const albums = require("../models/albums.model");
 
+function test(request, response) {
+  response.render("partials/pages/hello");
+}
+
 function getAlbumsView(request, response) {
   response.render("partials/pages/albums");
 }
@@ -17,4 +21,5 @@ module.exports = {
   getAlbumsView,
   add,
   list,
+  test,
 };
