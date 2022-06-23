@@ -1,4 +1,4 @@
-const chatsController = require("../controllers/chats.controller");
+const chatController = require("../controllers/chat.controller");
 const filesController = require("../controllers/files.controller");
 
 function handleChatMessage(message, io) {
@@ -7,7 +7,7 @@ function handleChatMessage(message, io) {
     message: message.text,
     date: new Date().toLocaleString("es-AR"),
   };
-  chatsController.add(chatMessage, io);
+  chatController.add(chatMessage, io);
   filesController.save(chatMessage);
 }
 

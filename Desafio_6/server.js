@@ -3,7 +3,7 @@ const { create } = require("express-handlebars");
 const http = require("http");
 const { Server } = require("socket.io");
 
-const handleChatMessage = require(`${__dirname}/handlers/chats.handler`);
+const handleChatMessage = require(`${__dirname}/handlers/chat.handler`);
 const handleNewAlbum = require(`${__dirname}/handlers/albums.handler`);
 const albumsRouter = require(`${__dirname}/routes/albums.route`);
 const homeRouter = require(`${__dirname}/routes/home.route`);

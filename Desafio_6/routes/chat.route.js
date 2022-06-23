@@ -1,7 +1,7 @@
 const express = require("express");
-const chatsController = require("../controllers/chats.controller");
+const chatController = require("../controllers/chat.controller");
 const chatRouter = express.Router();
 
-chatRouter.get("/", chatsController.getChatView);
+chatRouter.get("/", chatController.getChatView);
 
 module.exports = chatRouter;
