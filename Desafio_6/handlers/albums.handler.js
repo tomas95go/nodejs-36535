@@ -4,4 +4,8 @@ function handleNewAlbum(album, io) {
   albumsController.add(album, io);
 }
 
-module.exports = handleNewAlbum;
+function handleAllAlbums(socket) {
+  albumsController.list(socket);
+}
+
+module.exports = { handleNewAlbum, handleAllAlbums };

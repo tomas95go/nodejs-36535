@@ -108,10 +108,7 @@
         //Para saber si estoy en la pagina de productos/albums.
         if($newAlbumForm){
             //Obtengo los albums disponibles.
-            const getAllAlbums = async () => {
-                const response = await fetch(`http://localhost:8080/productos/list`);
-                const data = await response.json();
-                const { message , albums} = data;
+            socket.on('get all albums', (albums) => {
                 if(albums.length){
                     const $albumsTableBody = document.getElementById('albums-table-body');
                     //Muestro los albums/productos en la tabla.
@@ -150,9 +147,7 @@
 
                     });
                 }
-            }
-
-            getAllAlbums();
+            });
 
             $newAlbumForm.addEventListener('submit', (e) => {
             e.preventDefault();

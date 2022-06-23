@@ -4,7 +4,10 @@ const http = require("http");
 const { Server } = require("socket.io");
 
 const handleChatMessage = require(`${__dirname}/handlers/chat.handler`);
-const handleNewAlbum = require(`${__dirname}/handlers/albums.handler`);
+const {
+  handleNewAlbum,
+  handleAllAlbums,
+} = require(`${__dirname}/handlers/albums.handler`);
 const albumsRouter = require(`${__dirname}/routes/albums.route`);
 const homeRouter = require(`${__dirname}/routes/home.route`);
 const chatRouter = require(`${__dirname}/routes/chat.route`);
@@ -33,6 +36,7 @@ io.on("connection", (socket) => {
   socket.on("new album", (album) => {
     handleNewAlbum(album, io);
   });
+  handleAllAlbums(socket);
 });
 
 server.listen(PORT, () => {
