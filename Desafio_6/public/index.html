@@ -22,8 +22,8 @@
         <div class="col" id="albums-table-container"></div>
       </div>
       <div class="row">
-        <div class="col" id="new-email-form-container"></div>
-        <div class="col" id="chat-container"></div>
+        <div class="col-6" id="new-email-form-container"></div>
+        <div class="col-6" id="chat-container"></div>
       </div>
     </div>
 
@@ -83,43 +83,12 @@
         );
         $chatContainer = document.getElementById("chat-container");
 
-        const socket = io();
-
         $newAlbumFormContainer.innerHTML = albumFormTemplate();
+        $albumsTableContainer.innerHTML = albumsTableTemplate();
+        $newEmailFormContainer.innerHTML = emailFormTemplate();
+        $chatContainer.innerHTML = chatTemplate();
 
-        socket.on("get all albums", (albums) => {
-          $albumsTableContainer.innerHTML = albumsTableTemplate({
-            albums: albums,
-          });
-        });
-
-        const $newAlbumForm = document.getElementById("new-album-form");
-
-        $newAlbumForm.addEventListener("submit", (e) => {
-          e.preventDefault();
-          const form = new FormData(e.target);
-          const newAlbum = {
-            album: form.get("album-name"),
-            price: Number(form.get("album-price")),
-            img: form.get("album-img"),
-            artist: form.get("album-artist"),
-            release_year: form.get("album-release-year"),
-          };
-          socket.emit("new album", newAlbum);
-          $newAlbumForm.reset();
-        });
-
-        socket.on("new album", (newAlbum) => {
-          const { album, price, artist, img, release_year } = newAlbum;
-          const $albumsTableBody = document.getElementById("albums-table-body");
-          $albumsTableBody.innerHTML += albumTemplate({
-            album,
-            price,
-            artist,
-            img,
-            release_year,
-          });
-        });
+        start();
       };
 
       getView();
