@@ -2,9 +2,10 @@ const express = require("express");
 const { create } = require("express-handlebars");
 const http = require("http");
 const { Server } = require("socket.io");
-const fs = require("fs");
+
+const handleChatMessage = require(`${__dirname}/handlers/chats.handler`);
+const handleNewAlbum = require(`${__dirname}/handlers/albums.handler`);
 const albumsRouter = require(`${__dirname}/routes/albums.route`);
-const albumsController = require(`${__dirname}/controllers/albums.controller`);
 const homeRouter = require(`${__dirname}/routes/home.route`);
 const chatRouter = require(`${__dirname}/routes/chat.route`);
 
@@ -26,33 +27,11 @@ app.use("/productos", albumsRouter);
 app.use("/chat", chatRouter);
 
 io.on("connection", (socket) => {
-  console.log(`A new user conected: ${socket.id}`);
   socket.on("chat message", (message) => {
-    const chatMessage = {
-      email: message.email,
-      message: message.text,
-      date: new Date().toLocaleString("es-AR"),
-    };
-    io.emit("chat message", chatMessage);
-
-    const chat = fs.readFileSync(`${__dirname}/data/chat.json`, {
-      encoding: "utf8",
-    });
-    const parsedChat = JSON.parse(chat);
-    parsedChat.push(chatMessage);
-
-    const formattedChat = JSON.stringify(parsedChat);
-    fs.writeFile(`${__dirname}/data/chat.json`, formattedChat, (error) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Chat guardado");
-      }
-    });
+    handleChatMessage(message, io);
   });
-
   socket.on("new album", (album) => {
-    albumsController.add(album, io);
+    handleNewAlbum(album, io);
   });
 });
 
