@@ -5,6 +5,8 @@ const { Server } = require("socket.io");
 const fs = require("fs");
 const albumsRouter = require(`${__dirname}/routes/albums.route`);
 const albumsController = require(`${__dirname}/controllers/albums.controller`);
+const homeRouter = require(`${__dirname}/routes/home.route`);
+const chatRouter = require(`${__dirname}/routes/chat.route`);
 
 const app = express();
 const server = http.createServer(app);
@@ -19,15 +21,9 @@ app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 app.set("views", `${__dirname}/views`);
 
+app.use("/", homeRouter);
 app.use("/productos", albumsRouter);
-
-app.get("/", (req, res) => {
-  res.render("partials/pages/home");
-});
-
-app.get("/chat", (req, res) => {
-  res.render("partials/pages/chat");
-});
+app.use("/chat", chatRouter);
 
 io.on("connection", (socket) => {
   console.log(`A new user conected: ${socket.id}`);
