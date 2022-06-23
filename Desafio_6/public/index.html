@@ -16,7 +16,16 @@
     />
   </head>
   <body class="bg-dark text-white">
-    <div id="app"></div>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col" id="new-album-form-container"></div>
+        <div class="col" id="albums-table-container"></div>
+      </div>
+      <div class="row">
+        <div class="col" id="new-email-form-container"></div>
+        <div class="col" id="chat-container"></div>
+      </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <script
@@ -34,18 +43,82 @@
         );
         const albumsTable = await responseAlbumsTable.text();
 
-        const albumsTableTemplate = Handlebars.compile(albumsTable);
-        const mainTemplate = Handlebars.compile(index);
-        Handlebars.registerPartial("albumsTable", albumsTableTemplate);
+        const responseAlbum = await fetch("handlebars/albums/album.hbs");
+        const album = await responseAlbum.text();
 
-        $app = document.getElementById("app");
+        const responseAlbumForm = await fetch(
+          "handlebars/albums/new.album.form.hbs"
+        );
+        const albumForm = await responseAlbumForm.text();
+
+        const responseChat = await fetch("handlebars/chat/chat.hbs");
+        const chat = await responseChat.text();
+
+        const responseEmailForm = await fetch(
+          "handlebars/chat/new.email.form.hbs"
+        );
+        const emailForm = await responseEmailForm.text();
+
+        const mainTemplate = Handlebars.compile(index);
+        const albumTemplate = Handlebars.compile(album);
+        const albumsTableTemplate = Handlebars.compile(albumsTable);
+        const albumFormTemplate = Handlebars.compile(albumForm);
+        const chatTemplate = Handlebars.compile(chat);
+        const emailFormTemplate = Handlebars.compile(emailForm);
+
+        Handlebars.registerPartial("albumForm", albumFormTemplate);
+        Handlebars.registerPartial("album", albumTemplate);
+        Handlebars.registerPartial("albumsTable", albumsTableTemplate);
+        Handlebars.registerPartial("emailForm", emailFormTemplate);
+        Handlebars.registerPartial("chat", chatTemplate);
+
+        $newAlbumFormContainer = document.getElementById(
+          "new-album-form-container"
+        );
+        $albumsTableContainer = document.getElementById(
+          "albums-table-container"
+        );
+        $newEmailFormContainer = document.getElementById(
+          "new-email-form-container"
+        );
+        $chatContainer = document.getElementById("chat-container");
 
         const socket = io();
 
+        $newAlbumFormContainer.innerHTML = albumFormTemplate();
+
         socket.on("get all albums", (albums) => {
-          if (albums.length) {
-            console.log(albums);
-          }
+          $albumsTableContainer.innerHTML = albumsTableTemplate({
+            albums: albums,
+          });
+        });
+
+        const $newAlbumForm = document.getElementById("new-album-form");
+
+        $newAlbumForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const form = new FormData(e.target);
+          const newAlbum = {
+            album: form.get("album-name"),
+            price: Number(form.get("album-price")),
+            img: form.get("album-img"),
+            artist: form.get("album-artist"),
+            release_year: form.get("album-release-year"),
+          };
+          socket.emit("new album", newAlbum);
+          $newAlbumForm.reset();
+        });
+
+        socket.on("new album", (newAlbum) => {
+          const { album, price, artist, img, release_year } = newAlbum;
+          const $albumsTableBody = document.getElementById("albums-table-body");
+          $albumsTableBody.innerHTML += albumTemplate({
+            album,
+            price,
+            artist,
+            img,
+            release_year,
+          });
         });
       };
 

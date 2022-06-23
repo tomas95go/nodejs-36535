@@ -2,33 +2,22 @@
   <div class="card border-primary mb-3">
     <div class="card-header text-center">Álbumes</div>
     <div class="card-body">
-      <table class="table table-bordered text-white">
-        <thead>
-          <tr class="text-center">
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Foto</th>
-            <th>Artista</th>
-            <th>Año de lanzamiento</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each albums}}
+        <table class="table table-bordered text-white">
+          <thead>
             <tr class="text-center">
-              <td>{{this.name}}</td>
-              <td>{{this.price}}</td>
-              <td class="w-25 h-25">
-                <img
-                  class="img-thumbnail"
-                  src="{{this.img}}"
-                  alt="{{this.name}}"
-                /></td>
-              <td>{{this.artist}}</td>
-              <td>{{this.release_year}}</td>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Foto</th>
+              <th>Artista</th>
+              <th>Año de lanzamiento</th>
             </tr>
-          {{/each}}
-        </tbody>
-      </table>
+          </thead>
+          <tbody id="albums-table-body">
+            {{#each albums}}
+              {{> album }}
+            {{/each}}
+          </tbody>
+        </table>
     </div>
   </div>
 </div>
