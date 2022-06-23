@@ -4,28 +4,47 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Productos</title>
+    <title>e-commerce</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/darkly/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
   </head>
-  <body>
+  <body class="bg-dark text-white">
     <div id="app"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const getView = async () => {
-        const response = await fetch("index.hbs");
-        const data = await response.text();
-        const template = Handlebars.compile(data);
+        const response = await fetch("handlebars/index.hbs");
+        const index = await response.text();
+
+        const responseAlbumsTable = await fetch(
+          "handlebars/albums/albums.table.hbs"
+        );
+        const albumsTable = await responseAlbumsTable.text();
+
+        const albumsTableTemplate = Handlebars.compile(albumsTable);
+        const mainTemplate = Handlebars.compile(index);
+        Handlebars.registerPartial("albumsTable", albumsTableTemplate);
+
         $app = document.getElementById("app");
 
         const socket = io();
 
         socket.on("get all albums", (albums) => {
-          console.log(albums);
           if (albums.length) {
-            $app.innerHTML = template({
-              albums: albums,
-            });
+            console.log(albums);
           }
         });
       };
