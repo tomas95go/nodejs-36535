@@ -11,9 +11,6 @@ const {
   handleNewAlbum,
   handleAllAlbums,
 } = require(`${__dirname}/handlers/albums.handler`);
-const albumsRouter = require(`${__dirname}/routes/albums.route`);
-const homeRouter = require(`${__dirname}/routes/home.route`);
-const chatRouter = require(`${__dirname}/routes/chat.route`);
 
 const app = express();
 const server = http.createServer(app);
@@ -29,10 +26,6 @@ app.use(express.static("public"));
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 app.set("views", `${__dirname}/views`);
-
-app.use("/", homeRouter);
-app.use("/productos", albumsRouter);
-app.use("/chat", chatRouter);
 
 io.on("connection", (socket) => {
   handleAllChat(socket);
