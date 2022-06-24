@@ -23,10 +23,6 @@ const PORT = 8080;
 
 app.use(express.static("public"));
 
-app.engine("handlebars", hbs.engine);
-app.set("view engine", "handlebars");
-app.set("views", `${__dirname}/views`);
-
 io.on("connection", (socket) => {
   handleAllChat(socket);
   handleAllAlbums(socket);
