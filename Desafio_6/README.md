@@ -14,10 +14,7 @@ Por favor, leer antes de ejecutar.
 - HTML:
   | HTTP | ENDPOINT | RESULTADO |
   | -------- | ------------------------------------------- | --------------------------------- |
-  | GET | http://localhost:8080/ | Bienvenida |
-  | GET | http://localhost:8080/productos | Tabla de álbumes |
-  | GET | http://localhost:8080/productos/list | Lista de álbumes |
-  | GET | http://localhost:8080/chat | Centro de mensajes |
+  | GET | http://localhost:8080/ | Centro de mensajes y tabla de álbumes/productos |
 
 ## Ejemplo de datos para agregar
 
