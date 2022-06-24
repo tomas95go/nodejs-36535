@@ -112,7 +112,7 @@
           $albumsTableContainer.innerHTML = albumsTableTemplate({
             albums: albums,
           });
-          const $chatMessage = document.getElementById("chat-messages");
+          const $chatMessages = document.getElementById("chat-messages");
           const $newMessageForm = document.getElementById("new-message-form");
           const $newMessageInput = document.getElementById("new-message-input");
           $newMessageForm.addEventListener("submit", function (e) {
@@ -134,27 +134,15 @@
           //Si el servidor emite un mensaje, lo muestro en la pantalla del chat.
           socket.on("chat-message-ui", (chatMessage) => {
             const { email, message, date } = chatMessage;
-            const $newMessage = document.createElement("li");
-            $newMessage.classList.add("list-group-item");
 
-            $newMessageEmail = document.createElement("span");
-            $newMessageEmail.classList.add("text-info", "fw-bold");
-            $newMessageEmail.textContent = `${email} `;
-            $newMessage.appendChild($newMessageEmail);
-
-            $newMessageDate = document.createElement("span");
-            $newMessageDate.classList.add("text-muted");
-            $newMessageDate.textContent = `[${date}]: `;
-            $newMessage.appendChild($newMessageDate);
-
-            $newMessageText = document.createElement("span");
-            $newMessageText.classList.add("text-success", "fst-italic");
-            $newMessageText.textContent = message;
-            $newMessage.appendChild($newMessageText);
-
-            $chatMessage.appendChild($newMessage);
-
-            window.scrollTo(0, document.body.scrollHeight);
+            $chatMessages.insertAdjacentHTML(
+              "beforeend",
+              messageTemplate({
+                email,
+                date,
+                message,
+              })
+            );
           });
         });
 
