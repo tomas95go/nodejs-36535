@@ -1,4 +1,6 @@
-const albums = require("../models/albums.model");
+const fs = require("fs");
+const albums = fs.readFileSync("data/albums.json");
+const parsdAlbums = JSON.parse(albums);
 
 function test(request, response) {
   response.render("partials/pages/hello");
@@ -9,12 +11,11 @@ function getAlbumsView(request, response) {
 }
 
 function add(album, io) {
-  albums.push(album);
-  io.sockets.emit("new album", album);
+  io.emit("new-album-ui", album);
 }
 
 function list(socket) {
-  socket.emit("albums", albums);
+  socket.emit("albums", parsdAlbums);
 }
 
 module.exports = {

@@ -1,7 +1,7 @@
 const chatController = require("../controllers/chat.controller");
 const filesController = require("../controllers/files.controller");
 
-function handleAllChat(socket, io) {
+function handleAllChat(socket) {
   socket.on("get-chat", () => {
     chatController.getChat(socket);
   });
@@ -15,7 +15,7 @@ function handleChatMessage(socket, io) {
       date: new Date().toLocaleString("es-AR"),
     };
     chatController.add(chatMessage, socket, io);
-    filesController.save(chatMessage);
+    filesController.save(chatMessage, "data/chat.json");
   });
 }
 

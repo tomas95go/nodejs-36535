@@ -269,11 +269,11 @@
               artist: form.get("album-artist"),
               release_year: form.get("album-release-year"),
             };
-            socket.emit("new album", newAlbum);
+            socket.emit("new-album", newAlbum);
             $newAlbumForm.reset();
           });
 
-          socket.on("new album", (album) => {
+          socket.on("new-album-ui", (album) => {
             const albumAttributes = Object.entries(album);
             const $tr = document.createElement("tr");
             $tr.classList.add("text-center");
