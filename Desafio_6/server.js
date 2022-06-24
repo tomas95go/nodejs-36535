@@ -36,13 +36,13 @@ app.use("/chat", chatRouter);
 
 io.on("connection", (socket) => {
   handleAllChat(socket);
+  handleAllAlbums(socket);
   socket.on("chat message", (message) => {
     handleChatMessage(message, io);
   });
   socket.on("new album", (album) => {
     handleNewAlbum(album, io);
   });
-  handleAllAlbums(socket);
 });
 
 server.listen(PORT, () => {

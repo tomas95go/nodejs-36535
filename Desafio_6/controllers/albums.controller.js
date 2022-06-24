@@ -14,7 +14,7 @@ function add(album, io) {
 }
 
 function list(socket) {
-  socket.emit("get all albums", albums);
+  socket.emit("albums", albums);
 }
 
 module.exports = {
