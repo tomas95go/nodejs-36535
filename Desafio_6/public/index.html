@@ -96,9 +96,6 @@
         const $newEmailForm = document.getElementById("new-email-form");
         const $newEmailInput = document.getElementById("email-input");
         const $email = document.getElementById("user-email-display");
-        const $chatMessage = document.getElementById("chat-messages");
-        const $newMessageForm = document.getElementById("new-message-form");
-        const $newMessageInput = document.getElementById("new-message-input");
         const $newAlbumForm = document.getElementById("new-album-form");
         const $albumsTableBody = document.getElementById("albums-table-body");
 
@@ -115,6 +112,50 @@
           $albumsTableContainer.innerHTML = albumsTableTemplate({
             albums: albums,
           });
+          const $chatMessage = document.getElementById("chat-messages");
+          const $newMessageForm = document.getElementById("new-message-form");
+          const $newMessageInput = document.getElementById("new-message-input");
+          $newMessageForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            if (!$email.textContent) {
+              alertError("Por favor, ingrese un email para continuar");
+            } else if (!$newMessageInput.value) {
+              alertError("Por favor, ingrese un mensaje para continuar");
+            } else {
+              //Despues de validar. Mandar mensaje.
+              const chatMessage = {
+                email: $email.textContent,
+                text: $newMessageInput.value,
+              };
+              socket.emit("chat-message", chatMessage);
+              $newMessageInput.value = "";
+            }
+          });
+          //Si el servidor emite un mensaje, lo muestro en la pantalla del chat.
+          socket.on("chat-message-ui", (chatMessage) => {
+            const { email, message, date } = chatMessage;
+            const $newMessage = document.createElement("li");
+            $newMessage.classList.add("list-group-item");
+
+            $newMessageEmail = document.createElement("span");
+            $newMessageEmail.classList.add("text-info", "fw-bold");
+            $newMessageEmail.textContent = `${email} `;
+            $newMessage.appendChild($newMessageEmail);
+
+            $newMessageDate = document.createElement("span");
+            $newMessageDate.classList.add("text-muted");
+            $newMessageDate.textContent = `[${date}]: `;
+            $newMessage.appendChild($newMessageDate);
+
+            $newMessageText = document.createElement("span");
+            $newMessageText.classList.add("text-success", "fst-italic");
+            $newMessageText.textContent = message;
+            $newMessage.appendChild($newMessageText);
+
+            $chatMessage.appendChild($newMessage);
+
+            window.scrollTo(0, document.body.scrollHeight);
+          });
         });
 
         $newEmailForm.addEventListener("submit", (e) => {
@@ -126,72 +167,6 @@
           }
         });
 
-        $newMessageForm.addEventListener("submit", function (e) {
-          e.preventDefault();
-          if (!$email.textContent) {
-            Toastify({
-              text: "Por favor, ingrese un email para continuar",
-              duration: 3000,
-              newWindow: true,
-              close: true,
-              gravity: "top", // `top` or `bottom`
-              position: "right", // `left`, `center` or `right`
-              stopOnFocus: true, // Prevents dismissing of toast on hover
-              className: "bg-danger",
-              style: {
-                background: "unset",
-              },
-            }).showToast();
-          } else if (!$newMessageInput.value) {
-            Toastify({
-              text: "Por favor, ingrese un mensaje para continuar",
-              duration: 3000,
-              newWindow: true,
-              close: true,
-              gravity: "top", // `top` or `bottom`
-              position: "right", // `left`, `center` or `right`
-              stopOnFocus: true, // Prevents dismissing of toast on hover
-              className: "bg-danger",
-              style: {
-                background: "unset",
-              },
-            }).showToast();
-          } else {
-            //Despues de validar. Mandar mensaje.
-            const chatMessage = {
-              email: $email.textContent,
-              text: $newMessageInput.value,
-            };
-            socket.emit("chat-message", chatMessage);
-            $newMessageInput.value = "";
-          }
-        });
-
-        //Si el servidor emite un mensaje, lo muestro en la pantalla del chat.
-        socket.on("chat-message-ui", (chatMessage) => {
-          const { email, message, date } = chatMessage;
-          const $newMessage = document.createElement("li");
-          $newMessage.classList.add("list-group-item");
-
-          $newMessageEmail = document.createElement("span");
-          $newMessageEmail.classList.add("text-info", "fw-bold");
-          $newMessageEmail.textContent = `${email} `;
-          $newMessage.appendChild($newMessageEmail);
-
-          $newMessageDate = document.createElement("span");
-          $newMessageDate.classList.add("text-muted");
-          $newMessageDate.textContent = `[${date}]: `;
-          $newMessage.appendChild($newMessageDate);
-
-          $newMessageText = document.createElement("span");
-          $newMessageText.classList.add("text-success", "fst-italic");
-          $newMessageText.textContent = message;
-          $newMessage.appendChild($newMessageText);
-
-          $chatMessage.appendChild($newMessage);
-
-          window.scrollTo(0, document.body.scrollHeight);
-        });
         //Para saber si estoy en la pagina de productos/albums.
         if ($newAlbumForm) {
           $newAlbumForm.addEventListener("submit", (e) => {
@@ -237,6 +212,22 @@
       };
 
       getView();
+
+      const alertError = (error) => {
+        Toastify({
+          text: error,
+          duration: 3000,
+          newWindow: true,
+          close: true,
+          gravity: "top", // `top` or `bottom`
+          position: "right", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          className: "bg-danger",
+          style: {
+            background: "unset",
+          },
+        }).showToast();
+      };
     </script>
   </body>
 </html>
