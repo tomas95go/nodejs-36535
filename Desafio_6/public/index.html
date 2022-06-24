@@ -51,6 +51,9 @@
         );
         const albumForm = await responseAlbumForm.text();
 
+        const responseMessage = await fetch("handlebars/chat/message.hbs");
+        const message = await responseMessage.text();
+
         const responseChat = await fetch("handlebars/chat/chat.hbs");
         const chat = await responseChat.text();
 
@@ -63,6 +66,7 @@
         const albumTemplate = Handlebars.compile(album);
         const albumsTableTemplate = Handlebars.compile(albumsTable);
         const albumFormTemplate = Handlebars.compile(albumForm);
+        const messageTemplate = Handlebars.compile(message);
         const chatTemplate = Handlebars.compile(chat);
         const emailFormTemplate = Handlebars.compile(emailForm);
 
@@ -70,6 +74,7 @@
         Handlebars.registerPartial("album", albumTemplate);
         Handlebars.registerPartial("albumsTable", albumsTableTemplate);
         Handlebars.registerPartial("emailForm", emailFormTemplate);
+        Handlebars.registerPartial("message", messageTemplate);
         Handlebars.registerPartial("chat", chatTemplate);
 
         $newAlbumFormContainer = document.getElementById(
@@ -84,9 +89,7 @@
         $chatContainer = document.getElementById("chat-container");
 
         $newAlbumFormContainer.innerHTML = albumFormTemplate();
-
         $newEmailFormContainer.innerHTML = emailFormTemplate();
-        $chatContainer.innerHTML = chatTemplate();
 
         const socket = io();
 
@@ -103,29 +106,8 @@
         socket.emit("get-albums");
 
         socket.on("chat", (allChat) => {
-          allChat.forEach((chat) => {
-            const { email, message, date } = chat;
-            const $newMessage = document.createElement("li");
-            $newMessage.classList.add("list-group-item");
-
-            $newMessageEmail = document.createElement("span");
-            $newMessageEmail.classList.add("text-info", "fw-bold");
-            $newMessageEmail.textContent = `${email} `;
-            $newMessage.appendChild($newMessageEmail);
-
-            $newMessageDate = document.createElement("span");
-            $newMessageDate.classList.add("text-muted");
-            $newMessageDate.textContent = `[${date}]: `;
-            $newMessage.appendChild($newMessageDate);
-
-            $newMessageText = document.createElement("span");
-            $newMessageText.classList.add("text-success", "fst-italic");
-            $newMessageText.textContent = message;
-            $newMessage.appendChild($newMessageText);
-
-            $chatMessage.appendChild($newMessage);
-
-            window.scrollTo(0, document.body.scrollHeight);
+          $chatContainer.innerHTML = chatTemplate({
+            messages: allChat,
           });
         });
 
@@ -135,9 +117,6 @@
           });
         });
 
-        //Para saber si estoy en la pagina del chat
-
-        //Obtener mail del usuario
         $newEmailForm.addEventListener("submit", (e) => {
           e.preventDefault();
           if ($newEmailInput.value) {
