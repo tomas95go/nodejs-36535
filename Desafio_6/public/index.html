@@ -97,7 +97,6 @@
         const $newEmailInput = document.getElementById("email-input");
         const $email = document.getElementById("user-email-display");
         const $newAlbumForm = document.getElementById("new-album-form");
-        const $albumsTableBody = document.getElementById("albums-table-body");
 
         socket.emit("get-chat");
         socket.emit("get-albums");
@@ -105,12 +104,6 @@
         socket.on("chat", (allChat) => {
           $chatContainer.innerHTML = chatTemplate({
             messages: allChat,
-          });
-        });
-
-        socket.on("albums", (albums) => {
-          $albumsTableContainer.innerHTML = albumsTableTemplate({
-            albums: albums,
           });
           const $chatMessages = document.getElementById("chat-messages");
           const $newMessageForm = document.getElementById("new-message-form");
@@ -146,6 +139,27 @@
           });
         });
 
+        socket.on("albums", (albums) => {
+          $albumsTableContainer.innerHTML = albumsTableTemplate({
+            albums: albums,
+          });
+          const $albumsTableBody = document.getElementById("albums-table-body");
+          socket.on("new-album-ui", (newAlbum) => {
+            const { album, price, img, artist, release_year } = newAlbum;
+
+            $albumsTableBody.insertAdjacentHTML(
+              "beforeend",
+              albumTemplate({
+                album,
+                price,
+                img,
+                artist,
+                release_year,
+              })
+            );
+          });
+        });
+
         $newEmailForm.addEventListener("submit", (e) => {
           e.preventDefault();
           if ($newEmailInput.value) {
@@ -169,32 +183,6 @@
             };
             socket.emit("new-album", newAlbum);
             $newAlbumForm.reset();
-          });
-
-          socket.on("new-album-ui", (album) => {
-            const albumAttributes = Object.entries(album);
-            const $tr = document.createElement("tr");
-            $tr.classList.add("text-center");
-
-            albumAttributes.forEach((attribute) => {
-              const [key, value] = attribute;
-              const $td = document.createElement("td");
-
-              if (key === "img") {
-                $td.classList.add("w-25", "h-25");
-                const $img = document.createElement("img");
-                $img.classList.add("img-thumbnail");
-                $img.setAttribute("src", value);
-                $img.setAttribute("alt", "artist");
-                $td.appendChild($img);
-              } else {
-                $td.textContent = value;
-              }
-
-              $tr.appendChild($td);
-            });
-
-            $albumsTableBody.appendChild($tr);
           });
         }
       };
