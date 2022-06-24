@@ -84,16 +84,10 @@
         $chatContainer = document.getElementById("chat-container");
 
         $newAlbumFormContainer.innerHTML = albumFormTemplate();
-        $albumsTableContainer.innerHTML = albumsTableTemplate();
+
         $newEmailFormContainer.innerHTML = emailFormTemplate();
         $chatContainer.innerHTML = chatTemplate();
 
-        start();
-      };
-
-      getView();
-
-      const start = () => {
         const socket = io();
 
         const $newEmailForm = document.getElementById("new-email-form");
@@ -136,47 +130,9 @@
         });
 
         socket.on("albums", (albums) => {
-          if (albums.length) {
-            albums.forEach((album) => {
-              const $tr = document.createElement("tr");
-              $tr.classList.add("text-center");
-              const {
-                album: name,
-                price,
-                img,
-                artist,
-                release_year: releaseYear,
-              } = album;
-
-              const $tdAlbum = document.createElement("td");
-              $tdAlbum.textContent = name;
-
-              const $tdPrice = document.createElement("td");
-              $tdPrice.textContent = price;
-
-              const $tdImg = document.createElement("td");
-              $tdImg.classList.add("w-25", "h-25");
-              const $img = document.createElement("img");
-              $img.classList.add("img-thumbnail");
-              $img.setAttribute("src", img);
-              $img.setAttribute("alt", "artist");
-              $tdImg.appendChild($img);
-
-              const $tdArtist = document.createElement("td");
-              $tdArtist.textContent = artist;
-
-              const $tdReleaseYear = document.createElement("td");
-              $tdReleaseYear.textContent = releaseYear;
-
-              $tr.appendChild($tdAlbum);
-              $tr.appendChild($tdPrice);
-              $tr.appendChild($tdImg);
-              $tr.appendChild($tdArtist);
-              $tr.appendChild($tdReleaseYear);
-
-              $albumsTableBody.appendChild($tr);
-            });
-          }
+          $albumsTableContainer.innerHTML = albumsTableTemplate({
+            albums: albums,
+          });
         });
 
         //Para saber si estoy en la pagina del chat
@@ -300,6 +256,8 @@
           });
         }
       };
+
+      getView();
     </script>
   </body>
 </html>
