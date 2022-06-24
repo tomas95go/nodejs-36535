@@ -3,7 +3,10 @@ const { create } = require("express-handlebars");
 const http = require("http");
 const { Server } = require("socket.io");
 
-const handleChatMessage = require(`${__dirname}/handlers/chat.handler`);
+const {
+  handleChatMessage,
+  handleAllChat,
+} = require(`${__dirname}/handlers/chat.handler`);
 const {
   handleNewAlbum,
   handleAllAlbums,
@@ -32,6 +35,7 @@ app.use("/productos", albumsRouter);
 app.use("/chat", chatRouter);
 
 io.on("connection", (socket) => {
+  handleAllChat(socket);
   socket.on("chat message", (message) => {
     handleChatMessage(message, io);
   });

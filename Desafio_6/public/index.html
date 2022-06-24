@@ -99,6 +99,42 @@
         const $newEmailForm = document.getElementById("new-email-form");
         const $newEmailInput = document.getElementById("email-input");
         const $email = document.getElementById("user-email-display");
+        const $chatMessage = document.getElementById("chat-messages");
+        const $newMessageForm = document.getElementById("new-message-form");
+        const $newMessageInput = document.getElementById("new-message-input");
+        const $newAlbumForm = document.getElementById("new-album-form");
+        const $albumsTableBody = document.getElementById("albums-table-body");
+
+        socket.on("chat", (allChat) => {
+          allChat.forEach((chat) => {
+            const { email, message, date } = chat;
+            const $newMessage = document.createElement("li");
+            $newMessage.classList.add("list-group-item");
+
+            $newMessageEmail = document.createElement("span");
+            $newMessageEmail.classList.add("text-info", "fw-bold");
+            $newMessageEmail.textContent = `${email} `;
+            $newMessage.appendChild($newMessageEmail);
+
+            $newMessageDate = document.createElement("span");
+            $newMessageDate.classList.add("text-muted");
+            $newMessageDate.textContent = `[${date}]: `;
+            $newMessage.appendChild($newMessageDate);
+
+            $newMessageText = document.createElement("span");
+            $newMessageText.classList.add("text-success", "fst-italic");
+            $newMessageText.textContent = message;
+            $newMessage.appendChild($newMessageText);
+
+            $chatMessage.appendChild($newMessage);
+
+            window.scrollTo(0, document.body.scrollHeight);
+          });
+        });
+
+        socket.on("albums", (albums) => {
+          console.log(`Albums: ${albums}`);
+        });
 
         //Para saber si estoy en la pagina del chat
         if ($newEmailForm) {
@@ -112,9 +148,6 @@
             }
           });
 
-          const $chatMessage = document.getElementById("chat-messages");
-          const $newMessageForm = document.getElementById("new-message-form");
-          const $newMessageInput = document.getElementById("new-message-input");
           $newMessageForm.addEventListener("submit", function (e) {
             e.preventDefault();
             if (!$email.textContent) {
@@ -182,15 +215,11 @@
             window.scrollTo(0, document.body.scrollHeight);
           });
         }
-
-        const $newAlbumForm = document.getElementById("new-album-form");
         //Para saber si estoy en la pagina de productos/albums.
         if ($newAlbumForm) {
           //Obtengo los albums disponibles.
           socket.on("get all albums", (albums) => {
             if (albums.length) {
-              const $albumsTableBody =
-                document.getElementById("albums-table-body");
               //Muestro los albums/productos en la tabla.
               albums.forEach((album) => {
                 const $tr = document.createElement("tr");
@@ -250,8 +279,6 @@
 
           socket.on("new album", (album) => {
             const albumAttributes = Object.entries(album);
-            const $albumsTableBody =
-              document.getElementById("albums-table-body");
             const $tr = document.createElement("tr");
             $tr.classList.add("text-center");
 

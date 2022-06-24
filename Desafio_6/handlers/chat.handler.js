@@ -1,6 +1,10 @@
 const chatController = require("../controllers/chat.controller");
 const filesController = require("../controllers/files.controller");
 
+function handleAllChat(socket) {
+  chatController.getChat(socket);
+}
+
 function handleChatMessage(message, io) {
   const chatMessage = {
     email: message.email,
@@ -11,4 +15,4 @@ function handleChatMessage(message, io) {
   filesController.save(chatMessage);
 }
 
-module.exports = handleChatMessage;
+module.exports = { handleChatMessage, handleAllChat };
