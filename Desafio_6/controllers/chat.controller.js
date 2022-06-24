@@ -1,9 +1,7 @@
-const fs = require("fs");
-const chat = fs.readFileSync("data/chat.json");
-const parsedChat = JSON.parse(chat);
+const chat = require("../models/chat.model");
 
 function getChat(socket) {
-  socket.emit("chat", parsedChat);
+  socket.emit("chat", chat);
 }
 
 function add(message, socket, io) {

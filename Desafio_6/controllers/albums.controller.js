@@ -1,13 +1,11 @@
-const fs = require("fs");
-const albums = fs.readFileSync("data/albums.json");
-const parsdAlbums = JSON.parse(albums);
+const albums = require("../models/albums.model");
 
 function add(album, io) {
   io.emit("new-album-ui", album);
 }
 
 function list(socket) {
-  socket.emit("albums", parsdAlbums);
+  socket.emit("albums", albums);
 }
 
 module.exports = {

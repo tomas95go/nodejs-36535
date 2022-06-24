@@ -1,3 +1,6 @@
-const albums = [];
+const fs = require("fs");
 
-module.exports = albums;
+const albums = fs.readFileSync("data/albums.json");
+const parsdAlbums = JSON.parse(albums);
+
+module.exports = parsdAlbums;
