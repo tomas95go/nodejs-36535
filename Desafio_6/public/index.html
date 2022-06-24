@@ -105,6 +105,9 @@
         const $newAlbumForm = document.getElementById("new-album-form");
         const $albumsTableBody = document.getElementById("albums-table-body");
 
+        socket.emit("get-chat");
+        socket.emit("get-albums");
+
         socket.on("chat", (allChat) => {
           allChat.forEach((chat) => {
             const { email, message, date } = chat;
@@ -177,84 +180,83 @@
         });
 
         //Para saber si estoy en la pagina del chat
-        if ($newEmailForm) {
-          //Obtener mail del usuario
-          $newEmailForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            if ($newEmailInput.value) {
-              $email.textContent = $newEmailInput.value;
-              $newEmailInput.value = "";
-              $newEmailInput.setAttribute("disabled", "true");
-            }
-          });
 
-          $newMessageForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            if (!$email.textContent) {
-              Toastify({
-                text: "Por favor, ingrese un email para continuar",
-                duration: 3000,
-                newWindow: true,
-                close: true,
-                gravity: "top", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                className: "bg-danger",
-                style: {
-                  background: "unset",
-                },
-              }).showToast();
-            } else if (!$newMessageInput.value) {
-              Toastify({
-                text: "Por favor, ingrese un mensaje para continuar",
-                duration: 3000,
-                newWindow: true,
-                close: true,
-                gravity: "top", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                className: "bg-danger",
-                style: {
-                  background: "unset",
-                },
-              }).showToast();
-            } else {
-              //Despues de validar. Mandar mensaje.
-              const chatMessage = {
-                email: $email.textContent,
-                text: $newMessageInput.value,
-              };
-              socket.emit("chat message", chatMessage);
-              $newMessageInput.value = "";
-            }
-          });
+        //Obtener mail del usuario
+        $newEmailForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if ($newEmailInput.value) {
+            $email.textContent = $newEmailInput.value;
+            $newEmailInput.value = "";
+            $newEmailInput.setAttribute("disabled", "true");
+          }
+        });
 
-          //Si el servidor emite un mensaje, lo muestro en la pantalla del chat.
-          socket.on("chat message", function (chatMessage) {
-            const { email, message, date } = chatMessage;
-            const $newMessage = document.createElement("li");
-            $newMessage.classList.add("list-group-item");
+        $newMessageForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (!$email.textContent) {
+            Toastify({
+              text: "Por favor, ingrese un email para continuar",
+              duration: 3000,
+              newWindow: true,
+              close: true,
+              gravity: "top", // `top` or `bottom`
+              position: "right", // `left`, `center` or `right`
+              stopOnFocus: true, // Prevents dismissing of toast on hover
+              className: "bg-danger",
+              style: {
+                background: "unset",
+              },
+            }).showToast();
+          } else if (!$newMessageInput.value) {
+            Toastify({
+              text: "Por favor, ingrese un mensaje para continuar",
+              duration: 3000,
+              newWindow: true,
+              close: true,
+              gravity: "top", // `top` or `bottom`
+              position: "right", // `left`, `center` or `right`
+              stopOnFocus: true, // Prevents dismissing of toast on hover
+              className: "bg-danger",
+              style: {
+                background: "unset",
+              },
+            }).showToast();
+          } else {
+            //Despues de validar. Mandar mensaje.
+            const chatMessage = {
+              email: $email.textContent,
+              text: $newMessageInput.value,
+            };
+            socket.emit("chat-message", chatMessage);
+            $newMessageInput.value = "";
+          }
+        });
 
-            $newMessageEmail = document.createElement("span");
-            $newMessageEmail.classList.add("text-info", "fw-bold");
-            $newMessageEmail.textContent = `${email} `;
-            $newMessage.appendChild($newMessageEmail);
+        //Si el servidor emite un mensaje, lo muestro en la pantalla del chat.
+        socket.on("chat-message-ui", (chatMessage) => {
+          const { email, message, date } = chatMessage;
+          const $newMessage = document.createElement("li");
+          $newMessage.classList.add("list-group-item");
 
-            $newMessageDate = document.createElement("span");
-            $newMessageDate.classList.add("text-muted");
-            $newMessageDate.textContent = `[${date}]: `;
-            $newMessage.appendChild($newMessageDate);
+          $newMessageEmail = document.createElement("span");
+          $newMessageEmail.classList.add("text-info", "fw-bold");
+          $newMessageEmail.textContent = `${email} `;
+          $newMessage.appendChild($newMessageEmail);
 
-            $newMessageText = document.createElement("span");
-            $newMessageText.classList.add("text-success", "fst-italic");
-            $newMessageText.textContent = message;
-            $newMessage.appendChild($newMessageText);
+          $newMessageDate = document.createElement("span");
+          $newMessageDate.classList.add("text-muted");
+          $newMessageDate.textContent = `[${date}]: `;
+          $newMessage.appendChild($newMessageDate);
 
-            $chatMessage.appendChild($newMessage);
+          $newMessageText = document.createElement("span");
+          $newMessageText.classList.add("text-success", "fst-italic");
+          $newMessageText.textContent = message;
+          $newMessage.appendChild($newMessageText);
 
-            window.scrollTo(0, document.body.scrollHeight);
-          });
-        }
+          $chatMessage.appendChild($newMessage);
+
+          window.scrollTo(0, document.body.scrollHeight);
+        });
         //Para saber si estoy en la pagina de productos/albums.
         if ($newAlbumForm) {
           $newAlbumForm.addEventListener("submit", (e) => {

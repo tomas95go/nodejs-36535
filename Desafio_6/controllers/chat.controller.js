@@ -10,8 +10,8 @@ function getChat(socket) {
   socket.emit("chat", parsedChat);
 }
 
-function add(message, io) {
-  io.emit("chat message", message);
+function add(message, socket, io) {
+  io.emit("chat-message-ui", message);
 }
 
 module.exports = {

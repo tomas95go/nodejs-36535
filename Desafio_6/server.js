@@ -35,11 +35,9 @@ app.use("/productos", albumsRouter);
 app.use("/chat", chatRouter);
 
 io.on("connection", (socket) => {
-  handleAllChat(socket);
+  handleAllChat(socket, io);
   handleAllAlbums(socket);
-  socket.on("chat message", (message) => {
-    handleChatMessage(message, io);
-  });
+  handleChatMessage(socket, io);
   socket.on("new album", (album) => {
     handleNewAlbum(album, io);
   });
