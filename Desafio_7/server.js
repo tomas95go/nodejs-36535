@@ -1,6 +1,8 @@
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const {
   handleChatMessage,

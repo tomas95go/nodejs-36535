@@ -9,8 +9,8 @@ function handleNewAlbum(socket, io) {
 }
 
 function handleAllAlbums(socket) {
-  socket.on("get-albums", () => {
-    albumsController.list(socket);
+  socket.on("get-albums", async () => {
+    await albumsController.list(socket);
   });
 }
 

@@ -1,6 +1,11 @@
-const fs = require("fs");
+const path = require("path");
+const mariaDB = require(path.join(__dirname, "..", "db/maria.db"));
 
-const albums = fs.readFileSync("data/albums.json");
-const parsdAlbums = JSON.parse(albums);
+async function getAllDB() {
+  const albums = await mariaDB.select().table("albums");
+  return albums;
+}
 
-module.exports = parsdAlbums;
+module.exports = {
+  getAllDB,
+};
