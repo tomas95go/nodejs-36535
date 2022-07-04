@@ -6,6 +6,11 @@ async function getAllDB() {
   return albums;
 }
 
+async function addDB(album) {
+  await mariaDB("albums").insert(album);
+}
+
 module.exports = {
   getAllDB,
+  addDB,
 };

@@ -1,8 +1,13 @@
 const path = require("path");
-const { getAllDB } = require(path.join(__dirname, "..", "models/albums.model"));
+const { getAllDB, addDB } = require(path.join(
+  __dirname,
+  "..",
+  "models/albums.model"
+));
 
-function add(album, io) {
+async function add(album, io) {
   io.emit("new-album-ui", album);
+  await addDB(album);
 }
 
 async function list(socket) {

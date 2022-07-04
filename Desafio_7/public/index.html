@@ -141,12 +141,12 @@
           });
           const $albumsTableBody = document.getElementById("albums-table-body");
           socket.on("new-album-ui", (newAlbum) => {
-            const { album, price, img, artist, release_year } = newAlbum;
+            const { name, price, img, artist, release_year } = newAlbum;
 
             $albumsTableBody.insertAdjacentHTML(
               "beforeend",
               albumTemplate({
-                album,
+                name,
                 price,
                 img,
                 artist,
@@ -171,7 +171,7 @@
             e.preventDefault();
             const form = new FormData(e.target);
             const newAlbum = {
-              album: form.get("album-name"),
+              name: form.get("album-name"),
               price: Number(form.get("album-price")),
               img: form.get("album-img"),
               artist: form.get("album-artist"),

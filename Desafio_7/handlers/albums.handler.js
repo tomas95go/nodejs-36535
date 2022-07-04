@@ -1,10 +1,8 @@
 const albumsController = require(`../controllers/albums.controller`);
-const filesController = require("../controllers/files.controller");
 
 function handleNewAlbum(socket, io) {
-  socket.on("new-album", (album) => {
-    albumsController.add(album, io);
-    filesController.save(album, "data/albums.json");
+  socket.on("new-album", async (album) => {
+    await albumsController.add(album, io);
   });
 }
 
