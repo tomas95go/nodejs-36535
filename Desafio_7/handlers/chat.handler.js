@@ -1,5 +1,4 @@
 const chatController = require("../controllers/chat.controller");
-const filesController = require("../controllers/files.controller");
 
 function handleAllChat(socket) {
   socket.on("get-chat", () => {
@@ -8,14 +7,13 @@ function handleAllChat(socket) {
 }
 
 function handleChatMessage(socket, io) {
-  socket.on("chat-message", (message) => {
+  socket.on("chat-message", async (message) => {
     const chatMessage = {
       email: message.email,
       message: message.text,
       date: new Date().toLocaleString("es-AR"),
     };
-    chatController.add(chatMessage, socket, io);
-    filesController.save(chatMessage, "data/chat.json");
+    await chatController.add(chatMessage, io);
   });
 }
 

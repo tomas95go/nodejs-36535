@@ -6,6 +6,18 @@ async function getAllChatDB() {
   return chat;
 }
 
+async function addMessageDB(newMessage) {
+  const { message, date, email } = newMessage;
+  await sqliteDB
+    .insert({
+      message,
+      date,
+      email,
+    })
+    .into("messages");
+}
+
 module.exports = {
   getAllChatDB,
+  addMessageDB,
 };

@@ -5,6 +5,7 @@ const sqliteDB = require("knex")({
   connection: {
     filename: dbPath,
   },
+  useNullAsDefault: true,
 });
 
 module.exports = sqliteDB;
