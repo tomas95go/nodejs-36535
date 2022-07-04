@@ -1,6 +1,7 @@
-const chat = require("../models/chat.model");
+const { getAllChatDB } = require("../models/chat.model");
 
-function getChat(socket) {
+async function getChat(socket) {
+  const chat = await getAllChatDB();
   socket.emit("chat", chat);
 }
 

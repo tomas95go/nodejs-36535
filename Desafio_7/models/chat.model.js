@@ -1,6 +1,11 @@
-const fs = require("fs");
+const path = require("path");
+const sqliteDB = require(path.join(__dirname, "..", "db/sqlite.db"));
 
-const chat = fs.readFileSync("data/chat.json");
-const parsedChat = JSON.parse(chat);
+async function getAllChatDB() {
+  const chat = await sqliteDB.select().table("messages");
+  return chat;
+}
 
-module.exports = parsedChat;
+module.exports = {
+  getAllChatDB,
+};
