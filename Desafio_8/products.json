@@ -1,0 +1,118 @@
+[{
+  "_id": {
+    "$oid": "62c379f086f67be634ce42cb"
+  },
+  "id": {
+    "$oid": "62c379f086f67be634ce42ca"
+  },
+  "name": "Get Rich Or Die Tryin'1",
+  "price": 5000,
+  "img": "https://i.discogs.com/AMVipM-vD1NU3NhvRZkzNkzCup5PakFAJJqVUj3UDXU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1ODg4/Mi0xNDI1NzA3OTQw/LTg4MDUuanBlZw.jpeg",
+  "artist": "50 Cent",
+  "release_year": 2003,
+  "stock": 0
+},{
+  "_id": {
+    "$oid": "62c379f086f67be634ce42cf"
+  },
+  "id": {
+    "$oid": "62c379f086f67be634ce42ce"
+  },
+  "name": "Get Rich Or Die Tryin'3",
+  "price": 2000,
+  "img": "https://i.discogs.com/AMVipM-vD1NU3NhvRZkzNkzCup5PakFAJJqVUj3UDXU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1ODg4/Mi0xNDI1NzA3OTQw/LTg4MDUuanBlZw.jpeg",
+  "artist": "50 Cent",
+  "release_year": 2003,
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "62c379f086f67be634ce42d1"
+  },
+  "id": {
+    "$oid": "62c379f086f67be634ce42d0"
+  },
+  "name": "Get Rich Or Die Tryin'4",
+  "price": 2500,
+  "img": "https://i.discogs.com/AMVipM-vD1NU3NhvRZkzNkzCup5PakFAJJqVUj3UDXU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1ODg4/Mi0xNDI1NzA3OTQw/LTg4MDUuanBlZw.jpeg",
+  "artist": "50 Cent",
+  "release_year": 2003,
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "62c379f086f67be634ce42d3"
+  },
+  "id": {
+    "$oid": "62c379f086f67be634ce42d2"
+  },
+  "name": "Get Rich Or Die Tryin'5",
+  "price": 3000,
+  "img": "https://i.discogs.com/AMVipM-vD1NU3NhvRZkzNkzCup5PakFAJJqVUj3UDXU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1ODg4/Mi0xNDI1NzA3OTQw/LTg4MDUuanBlZw.jpeg",
+  "artist": "50 Cent",
+  "release_year": 2003,
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "62c379f086f67be634ce42d5"
+  },
+  "id": {
+    "$oid": "62c379f086f67be634ce42d4"
+  },
+  "name": "Get Rich Or Die Tryin'6",
+  "price": 5000,
+  "img": "https://i.discogs.com/AMVipM-vD1NU3NhvRZkzNkzCup5PakFAJJqVUj3UDXU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1ODg4/Mi0xNDI1NzA3OTQw/LTg4MDUuanBlZw.jpeg",
+  "artist": "50 Cent",
+  "release_year": 2003,
+  "stock": 0
+},{
+  "_id": {
+    "$oid": "62c379f086f67be634ce42d7"
+  },
+  "id": {
+    "$oid": "62c379f086f67be634ce42d6"
+  },
+  "name": "Get Rich Or Die Tryin'7",
+  "price": 5000,
+  "img": "https://i.discogs.com/AMVipM-vD1NU3NhvRZkzNkzCup5PakFAJJqVUj3UDXU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1ODg4/Mi0xNDI1NzA3OTQw/LTg4MDUuanBlZw.jpeg",
+  "artist": "50 Cent",
+  "release_year": 2003,
+  "stock": 0
+},{
+  "_id": {
+    "$oid": "62c379f086f67be634ce42d9"
+  },
+  "id": {
+    "$oid": "62c379f086f67be634ce42d8"
+  },
+  "name": "Get Rich Or Die Tryin'8",
+  "price": 5000,
+  "img": "https://i.discogs.com/AMVipM-vD1NU3NhvRZkzNkzCup5PakFAJJqVUj3UDXU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1ODg4/Mi0xNDI1NzA3OTQw/LTg4MDUuanBlZw.jpeg",
+  "artist": "50 Cent",
+  "release_year": 2003,
+  "stock": 0
+},{
+  "_id": {
+    "$oid": "62c379f186f67be634ce42db"
+  },
+  "id": {
+    "$oid": "62c379f186f67be634ce42da"
+  },
+  "name": "Get Rich Or Die Tryin'9",
+  "price": 1250,
+  "img": "https://i.discogs.com/AMVipM-vD1NU3NhvRZkzNkzCup5PakFAJJqVUj3UDXU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1ODg4/Mi0xNDI1NzA3OTQw/LTg4MDUuanBlZw.jpeg",
+  "artist": "50 Cent",
+  "release_year": 2003,
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "62c379f286f67be634ce42dd"
+  },
+  "id": {
+    "$oid": "62c379f286f67be634ce42dc"
+  },
+  "name": "Get Rich Or Die Tryin'10",
+  "price": 5000,
+  "img": "https://i.discogs.com/AMVipM-vD1NU3NhvRZkzNkzCup5PakFAJJqVUj3UDXU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI1ODg4/Mi0xNDI1NzA3OTQw/LTg4MDUuanBlZw.jpeg",
+  "artist": "50 Cent",
+  "release_year": 2003,
+  "stock": 0
+}]
