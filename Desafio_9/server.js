@@ -8,10 +8,6 @@ const {
   handleChatMessage,
   handleAllChat,
 } = require(`${__dirname}/handlers/chat.handler`);
-const {
-  handleNewAlbum,
-  handleAllAlbums,
-} = require(`${__dirname}/handlers/albums.handler`);
 
 const app = express();
 const server = http.createServer(app);
@@ -23,9 +19,7 @@ app.use(express.static("public"));
 
 io.on("connection", (socket) => {
   handleAllChat(socket);
-  handleAllAlbums(socket);
   handleChatMessage(socket, io);
-  handleNewAlbum(socket, io);
 });
 
 server.listen(PORT, () => {
