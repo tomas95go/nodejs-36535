@@ -18,12 +18,11 @@
   <body class="bg-dark text-white">
     <div class="container mt-5">
       <div class="row">
-        <div class="col" id="new-album-form-container"></div>
         <div class="col" id="albums-table-container"></div>
-      </div>
-      <div class="row">
-        <div class="col-6" id="new-email-form-container"></div>
-        <div class="col-6" id="chat-container"></div>
+        <div class="col">
+          <div class="col" id="new-email-form-container"></div>
+          <div class="col" id="chat-container"></div>
+        </div>
       </div>
     </div>
 
@@ -43,11 +42,6 @@
         const responseAlbum = await fetch("handlebars/albums/album.hbs");
         const album = await responseAlbum.text();
 
-        const responseAlbumForm = await fetch(
-          "handlebars/albums/new.album.form.hbs"
-        );
-        const albumForm = await responseAlbumForm.text();
-
         const responseMessage = await fetch("handlebars/chat/message.hbs");
         const message = await responseMessage.text();
 
@@ -61,21 +55,16 @@
 
         const albumTemplate = Handlebars.compile(album);
         const albumsTableTemplate = Handlebars.compile(albumsTable);
-        const albumFormTemplate = Handlebars.compile(albumForm);
         const messageTemplate = Handlebars.compile(message);
         const chatTemplate = Handlebars.compile(chat);
         const emailFormTemplate = Handlebars.compile(emailForm);
 
-        Handlebars.registerPartial("albumForm", albumFormTemplate);
         Handlebars.registerPartial("album", albumTemplate);
         Handlebars.registerPartial("albumsTable", albumsTableTemplate);
         Handlebars.registerPartial("emailForm", emailFormTemplate);
         Handlebars.registerPartial("message", messageTemplate);
         Handlebars.registerPartial("chat", chatTemplate);
 
-        $newAlbumFormContainer = document.getElementById(
-          "new-album-form-container"
-        );
         $albumsTableContainer = document.getElementById(
           "albums-table-container"
         );
@@ -84,18 +73,14 @@
         );
         $chatContainer = document.getElementById("chat-container");
 
-        $newAlbumFormContainer.innerHTML = albumFormTemplate();
         $newEmailFormContainer.innerHTML = emailFormTemplate();
 
         const socket = io();
 
         const $newEmailForm = document.getElementById("new-email-form");
         const $newEmailInput = document.getElementById("email-input");
-        const $email = document.getElementById("user-email-display");
-        const $newAlbumForm = document.getElementById("new-album-form");
 
         socket.emit("get-chat");
-        socket.emit("get-albums");
 
         socket.on("chat", (allChat) => {
           $chatContainer.innerHTML = chatTemplate({
@@ -135,26 +120,17 @@
           });
         });
 
-        socket.on("albums", (albums) => {
+        const getAlbums = async () => {
+          const response = await fetch(
+            `http://localhost:8080/api/productos-test`
+          );
+          const data = await response.json();
           $albumsTableContainer.innerHTML = albumsTableTemplate({
-            albums: albums,
+            albums: data.products,
           });
-          const $albumsTableBody = document.getElementById("albums-table-body");
-          socket.on("new-album-ui", (newAlbum) => {
-            const { name, price, img, artist, release_year } = newAlbum;
+        };
 
-            $albumsTableBody.insertAdjacentHTML(
-              "beforeend",
-              albumTemplate({
-                name,
-                price,
-                img,
-                artist,
-                release_year,
-              })
-            );
-          });
-        });
+        getAlbums();
 
         $newEmailForm.addEventListener("submit", (e) => {
           e.preventDefault();
@@ -164,23 +140,6 @@
             $newEmailInput.setAttribute("disabled", "true");
           }
         });
-
-        //Para saber si estoy en la pagina de productos/albums.
-        if ($newAlbumForm) {
-          $newAlbumForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const form = new FormData(e.target);
-            const newAlbum = {
-              name: form.get("album-name"),
-              price: Number(form.get("album-price")),
-              img: form.get("album-img"),
-              artist: form.get("album-artist"),
-              release_year: form.get("album-release-year"),
-            };
-            socket.emit("new-album", newAlbum);
-            $newAlbumForm.reset();
-          });
-        }
       };
 
       getView();
