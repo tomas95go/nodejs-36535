@@ -7,13 +7,13 @@ function handleAllChat(socket) {
 }
 
 function handleChatMessage(socket, io) {
-  socket.on("chat-message", async (message) => {
+  socket.on("chat-message", (message) => {
     const chatMessage = {
       email: message.email,
       message: message.text,
       date: new Date().toLocaleString("es-AR"),
     };
-    await chatController.add(chatMessage, io);
+    chatController.add(chatMessage, io);
   });
 }
 

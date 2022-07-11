@@ -5,9 +5,9 @@ async function getChat(socket) {
   socket.emit("chat", chat);
 }
 
-async function add(message, io) {
+function add(message, io) {
   io.emit("chat-message-ui", message);
-  //await addMessageDB(message);
+  chatModel.addMessage(message);
 }
 
 module.exports = {

@@ -9,6 +9,7 @@ const {
   handleAllChat,
 } = require(`${__dirname}/handlers/chat.handler`);
 const albumsRouter = require(`${__dirname}/routes/albums.route`);
+const db = require(`${__dirname}/db`);
 
 const app = express();
 const server = http.createServer(app);
@@ -18,6 +19,8 @@ const PORT = 8080;
 
 app.use(express.static("public"));
 app.use(express.json());
+db.connect();
+
 app.use("/api/productos-test", albumsRouter);
 
 io.on("connection", (socket) => {
