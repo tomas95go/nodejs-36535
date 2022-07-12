@@ -79,7 +79,6 @@
 
         const $newEmailForm = document.getElementById("new-email-form");
         const $newEmailInput = document.getElementById("email-input");
-        const $email = document.getElementById("user-email-display");
 
         socket.emit("get-chat");
 
@@ -89,17 +88,42 @@
           });
           const $chatMessages = document.getElementById("chat-messages");
           const $newMessageForm = document.getElementById("new-message-form");
-          const $newMessageInput = document.getElementById("new-message-input");
+
           $newMessageForm.addEventListener("submit", function (e) {
             e.preventDefault();
-            if (!$email.textContent) {
+            const $email = document.getElementById("email-input").value;
+            const $nombre = document.getElementById("nombre-input").value;
+            const $apellido = document.getElementById("apellido-input").value;
+            const $edad = document.getElementById("edad-input").value;
+            const $alias = document.getElementById("alias-input").value;
+            const $avatar = document.getElementById("avatar-input").value;
+            const $newMessageInput =
+              document.getElementById("new-message-input");
+            if (!$email) {
               alertError("Por favor, ingrese un email para continuar");
+            } else if (!$nombre) {
+              alertError("Por favor, ingrese un nombre para continuar");
+            } else if (!$apellido) {
+              alertError("Por favor, ingrese un apellido para continuar");
+            } else if (!$edad) {
+              alertError("Por favor, ingrese un edad para continuar");
+            } else if (!$alias) {
+              alertError("Por favor, ingrese un alias para continuar");
+            } else if (!$avatar) {
+              alertError("Por favor, ingrese un avatar para continuar");
             } else if (!$newMessageInput.value) {
               alertError("Por favor, ingrese un mensaje para continuar");
             } else {
               //Despues de validar. Mandar mensaje.
               const chatMessage = {
-                email: $email.textContent,
+                author: {
+                  id: $email,
+                  nombre: $nombre,
+                  apellido: $apellido,
+                  edad: $edad,
+                  alias: $alias,
+                  avatar: $avatar,
+                },
                 text: $newMessageInput.value,
               };
               socket.emit("chat-message", chatMessage);
@@ -132,15 +156,6 @@
         };
 
         getAlbums();
-
-        $newEmailForm.addEventListener("submit", (e) => {
-          e.preventDefault();
-          if ($newEmailInput.value) {
-            $email.textContent = $newEmailInput.value;
-            $newEmailInput.value = "";
-            $newEmailInput.setAttribute("disabled", "true");
-          }
-        });
       };
 
       getView();
