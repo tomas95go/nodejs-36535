@@ -3,7 +3,7 @@ const joiHelper = require(path.join(__dirname, "..", "/helpers/joi.helper"));
 const chatModel = require(path.join(__dirname, "..", "/models/chat.model"));
 
 async function getChat(socket) {
-  const chat = []; //await getAllChatDB();
+  const chat = await chatModel.getAllChat();
   socket.emit("chat", chat);
 }
 
@@ -22,9 +22,8 @@ async function add(message, io) {
     await joiHelper.messageTextSchema.validateAsync({
       text,
     });
-    console.log(message);
-    //io.emit("chat-message-ui", message);
-    //chatModel.addMessage(message);
+    io.emit("chat-message-ui", message);
+    chatModel.addMessage(message);
   } catch (error) {
     console.log(error);
   }

@@ -5,7 +5,7 @@ const chatSchema = new mongoose.Schema({
     id: String,
     nombre: String,
     apellido: String,
-    edad: String,
+    edad: Number,
     alias: String,
     avatar: String,
   },
@@ -14,26 +14,22 @@ const chatSchema = new mongoose.Schema({
 
 const Chat = mongoose.model("Chat", chatSchema);
 
-async function getAllChat() {}
-
-function addMessage() {
+async function getAllChat() {
   try {
-    const newMessage = {
-      author: {
-        id: 1,
-        nombre: "Tom",
-        apellido: "asd",
-        edad: "24",
-        alias: "asd",
-        avatar: "xD",
-      },
-      text: "hola!!!!!",
-    };
-    const product = new Chat(newMessage);
-    product.save();
-    return product;
+    const chat = await Chat.find();
+    return chat;
   } catch (error) {
-    throw "Hubo un error al obtener los productos";
+    throw "Hubo un error al recuperar los mensajes del chat";
+  }
+}
+
+function addMessage(message) {
+  try {
+    const newMessage = new Chat(message);
+    newMessage.save();
+    return newMessage;
+  } catch (error) {
+    throw "Hubo un error al agregar un mensaje";
   }
 }
 

@@ -132,14 +132,12 @@
           });
           //Si el servidor emite un mensaje, lo muestro en la pantalla del chat.
           socket.on("chat-message-ui", (chatMessage) => {
-            const { email, message, date } = chatMessage;
-
+            const { author, text } = chatMessage;
             $chatMessages.insertAdjacentHTML(
               "beforeend",
               messageTemplate({
-                email,
-                date,
-                message,
+                author,
+                text,
               })
             );
           });
