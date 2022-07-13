@@ -15,7 +15,7 @@
     style="height: 100vh"
   >
     <div class="col-6">
-      <form>
+      <form id="login-form">
         <!-- Email input -->
         <div class="form-outline mb-4">
           <input
@@ -38,4 +38,31 @@
   </body>
 </html>
 
-<script></script>
+<script>
+  const $loginForm = document.getElementById("login-form");
+
+  $loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const nombre = formData.get("input-user-name");
+    $loginForm.reset();
+
+    const user = {
+      name: nombre,
+    };
+
+    const response = await fetch("http://localhost:8080/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+
+    const result = await response.json();
+
+    if (response.status === 200) {
+      window.location.href = "home.html";
+    }
+  });
+</script>
