@@ -1,5 +1,5 @@
 {
-  "name": "desafio_9",
+  "name": "desafio_10",
   "version": "1.0.0",
   "description": "Implementando WebSockets con  NodeJS, Express, Handlebars, Fakerjs y Normalizr.",
   "main": "server.js",
