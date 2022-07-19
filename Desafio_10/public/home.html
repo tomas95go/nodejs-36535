@@ -17,6 +17,12 @@
   </head>
   <body class="bg-dark text-white">
     <div class="container mt-5">
+      <div class="row mb-2">
+        <div class="d-flex justify-content-center">
+          <h1 id="user-greeting"></h1>
+          <button class="btn btn-primary" id="logout-btn">Logout</button>
+        </div>
+      </div>
       <div class="row">
         <div class="col" id="albums-table-container"></div>
         <div class="col">
@@ -34,23 +40,19 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const getView = async () => {
-        const responseAlbumsTable = await fetch(
-          "handlebars/albums/albums.table.hbs"
-        );
+        const responseAlbumsTable = await fetch("albums/albums.table.hbs");
         const albumsTable = await responseAlbumsTable.text();
 
-        const responseAlbum = await fetch("handlebars/albums/album.hbs");
+        const responseAlbum = await fetch("albums/album.hbs");
         const album = await responseAlbum.text();
 
-        const responseMessage = await fetch("handlebars/chat/message.hbs");
+        const responseMessage = await fetch("chat/message.hbs");
         const message = await responseMessage.text();
 
-        const responseChat = await fetch("handlebars/chat/chat.hbs");
+        const responseChat = await fetch("chat/chat.hbs");
         const chat = await responseChat.text();
 
-        const responseEmailForm = await fetch(
-          "handlebars/chat/new.email.form.hbs"
-        );
+        const responseEmailForm = await fetch("chat/new.email.form.hbs");
         const emailForm = await responseEmailForm.text();
 
         const albumTemplate = Handlebars.compile(album);
@@ -154,6 +156,20 @@
         };
 
         getAlbums();
+
+        const getUser = async () => {
+          const response = await fetch("http://localhost:8080/login/user");
+          const result = await response.json();
+          const $userGreeting = document.getElementById("user-greeting");
+          $userGreeting.innerText = `Hola ${result.user}!`;
+
+          const $logoutBtn = document.getElementById("logout-btn");
+          $logoutBtn.addEventListener("click", () => {
+            window.location.href = "/logout";
+          });
+        };
+
+        getUser();
       };
 
       getView();

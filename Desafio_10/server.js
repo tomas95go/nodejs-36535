@@ -1,4 +1,6 @@
 const express = require("express");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const http = require("http");
 const { Server } = require("socket.io");
 const dotenv = require("dotenv");
@@ -10,6 +12,8 @@ const {
 } = require(`${__dirname}/handlers/chat.handler`);
 const albumsRouter = require(`${__dirname}/routes/albums.route`);
 const loginRouter = require(`${__dirname}/routes/login.route`);
+const homeRouter = require(`${__dirname}/routes/home.route`);
+const logoutRouter = require(`${__dirname}/routes/logout.route`);
 const db = require(`${__dirname}/db`);
 
 const app = express();
@@ -18,11 +22,24 @@ const io = new Server(server);
 
 const PORT = 8080;
 
-app.use(express.static("public"));
+app.use(
+  session({
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_ATLAS_CREDENTIALS,
+    }),
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 600000 },
+    secret: "Hola!",
+  })
+);
+
 app.use(express.json());
 db.connect();
 
 app.use("/login", loginRouter);
+app.use("/home", homeRouter);
+app.use("/logout", logoutRouter);
 app.use("/api/productos-test", albumsRouter);
 
 io.on("connection", (socket) => {
