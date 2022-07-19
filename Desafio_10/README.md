@@ -8,3 +8,17 @@ Por favor, leer antes de ejecutar.
 2. Dirigirse a la carpeta Desafio_10.
 3. Ejecutar "npm install" para instalar las dependecias.
 4. Ejecutar "npm run dev" o "npm start".
+
+## Ejemplo del .env
+
+```
+MONGODB_CONNECTION_STRING="my_mongodb_connection_string"
+MONGO_DATABASE="my_mongo_database"
+MONGO_ATLAS_CREDENTIALS="my_mongo_atlas_credentials"
+```
+
+## Capturas del progama
+
+![Login](capturas/login.png)
+![Home](capturas/home.png)
+![Despedida](capturas/despedida.png)
