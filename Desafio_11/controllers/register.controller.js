@@ -1,9 +1,13 @@
 const path = require("path");
+const bcrypt = require("bcrypt");
 const userModel = require(path.join(__dirname, "..", "models/user.model"));
+const saltRounds = 10;
 
 async function add(request, response) {
   try {
     const newUser = request.body;
+    const hashedPassword = await bcrypt.hash(newUser.password, saltRounds);
+    newUser.password = hashedPassword;
     const addedUser = await userModel.add(newUser);
     response.status(200).json({
       message: "Nuevo usuario registrado con éxito",
