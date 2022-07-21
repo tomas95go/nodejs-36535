@@ -14,6 +14,7 @@ const albumsRouter = require(`${__dirname}/routes/albums.route`);
 const loginRouter = require(`${__dirname}/routes/login.route`);
 const homeRouter = require(`${__dirname}/routes/home.route`);
 const logoutRouter = require(`${__dirname}/routes/logout.route`);
+const registerRouter = require(`${__dirname}/routes/register.route`);
 const db = require(`${__dirname}/db`);
 
 const app = express();
@@ -37,6 +38,7 @@ app.use(
 app.use(express.json());
 db.connect();
 
+app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/home", homeRouter);
 app.use("/logout", logoutRouter);
