@@ -50,7 +50,7 @@
               Enviar
             </button>
             <div id="error-list-container" class="d-none">
-              <ul id="error-list"></ul>
+              <ul id="error-list" class="text-danger"></ul>
             </div>
           </form>
         </div>
@@ -79,8 +79,28 @@
         });
 
         const result = await response.json();
+        const $errorListContainer = document.getElementById(
+          "error-list-container"
+        );
+        const $errorList = document.getElementById("error-list");
 
-        $registerForm.reset();
+        if (response.status !== 200) {
+          $errorListContainer.classList.remove("d-none");
+
+          const $errorItem = document.createElement("li");
+          $errorItem.textContent = result.message;
+          $errorList.appendChild($errorItem);
+        } else {
+          const hasDisplayNone =
+            $errorListContainer.classList.contains("d-none");
+          if (!hasDisplayNone) {
+            $errorListContainer.classList.add("d-none");
+          }
+          while ($errorList.firstChild) {
+            $errorList.removeChild($errorList.firstChild);
+          }
+          $registerForm.reset();
+        }
       });
     </script>
   </body>

@@ -17,6 +17,16 @@ function add(user) {
   }
 }
 
+function check(email) {
+  try {
+    const isPresent = User.findOne({ email }).count();
+    return isPresent;
+  } catch (error) {
+    throw `Hubo un error al buscar al chequear el usuario`;
+  }
+}
+
 module.exports = {
   add,
+  check,
 };

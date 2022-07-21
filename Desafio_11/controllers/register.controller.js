@@ -6,6 +6,15 @@ const saltRounds = 10;
 async function add(request, response) {
   try {
     const newUser = request.body;
+
+    const userExists = await userModel.check(newUser.email);
+
+    if (userExists) {
+      return response.status(409).json({
+        message: `El email: "${newUser.email}" ya está siendo utilizado por otro usuario.`,
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(newUser.password, saltRounds);
     newUser.password = hashedPassword;
     const addedUser = await userModel.add(newUser);
