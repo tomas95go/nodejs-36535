@@ -15,41 +15,49 @@
     style="height: 100vh"
   >
     <div class="col-6">
-      <form id="login-form">
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-          <input
-            type="email"
-            autocomplete="off"
-            id="input-user-email"
-            name="input-user-email"
-            class="form-control"
-          />
-          <label class="form-label" for="input-user-email"
-            >Ingrese su email</label
-          >
+      <div class="card text-white bg-dark mb-3">
+        <div class="card-header">
+          <h5>Login</h5>
+          <a class="btn btn-primary" href="/register">Registrarse</a>
         </div>
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-          <input
-            type="password"
-            autocomplete="off"
-            id="input-user-password"
-            name="input-user-password"
-            class="form-control"
-          />
-          <label class="form-label" for="input-user-password"
-            >Ingrese su clave</label
-          >
+        <div class="card-body">
+          <form id="login-form">
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input
+                type="email"
+                autocomplete="off"
+                id="input-user-email"
+                name="input-user-email"
+                class="form-control"
+              />
+              <label class="form-label" for="input-user-email"
+                >Ingrese su email</label
+              >
+            </div>
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+              <input
+                type="password"
+                autocomplete="off"
+                id="input-user-password"
+                name="input-user-password"
+                class="form-control"
+              />
+              <label class="form-label" for="input-user-password"
+                >Ingrese su clave</label
+              >
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block w-100 mb-4">
+              Enviar
+            </button>
+            <div id="error-list-container" class="d-none">
+              <ul id="error-list" class="text-danger"></ul>
+            </div>
+          </form>
         </div>
-        <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block w-100 mb-4">
-          Enviar
-        </button>
-        <div id="error-list-container" class="d-none">
-          <ul id="error-list" class="text-danger"></ul>
-        </div>
-      </form>
+      </div>
     </div>
   </body>
 </html>
