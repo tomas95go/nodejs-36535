@@ -59,6 +59,11 @@
 
   $loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    const $errorListContainer = document.getElementById("error-list-container");
+    const $errorList = document.getElementById("error-list");
+    while ($errorList.firstChild) {
+      $errorList.removeChild($errorList.firstChild);
+    }
     const formData = new FormData(event.target);
     const email = formData.get("input-user-email");
     const password = formData.get("input-user-password");
@@ -77,27 +82,19 @@
       body: JSON.stringify(user),
     });
 
-    const result = await response.json();
-
-    const $errorListContainer = document.getElementById("error-list-container");
-    const $errorList = document.getElementById("error-list");
-
-    if (response.status !== 200) {
-      $errorListContainer.classList.remove("d-none");
-
-      const $errorItem = document.createElement("li");
-      $errorItem.textContent = result.message;
-      $errorList.appendChild($errorItem);
-    } else {
+    if (response.status === 200) {
       const hasDisplayNone = $errorListContainer.classList.contains("d-none");
       if (!hasDisplayNone) {
         $errorListContainer.classList.add("d-none");
       }
-      while ($errorList.firstChild) {
-        $errorList.removeChild($errorList.firstChild);
-      }
       $loginForm.reset();
       window.location.href = "/home";
+    } else {
+      $errorListContainer.classList.remove("d-none");
+
+      const $errorItem = document.createElement("li");
+      $errorItem.textContent = "Usuario o clave incorrecto";
+      $errorList.appendChild($errorItem);
     }
   });
 </script>

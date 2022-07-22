@@ -19,14 +19,27 @@ function add(user) {
 
 function check(email) {
   try {
-    const isPresent = User.findOne({ email }).count();
+    const isPresent = User.findOne({ email });
     return isPresent;
   } catch (error) {
     throw `Hubo un error al buscar al chequear el usuario`;
   }
 }
 
+function authenticate(user) {
+  try {
+    const isValid = User.findOne({
+      email: user.email,
+      password: user.password,
+    }).count();
+    return isValid;
+  } catch (error) {
+    throw `Hubo un error al buscar al autenticar el usuario`;
+  }
+}
+
 module.exports = {
   add,
   check,
+  authenticate,
 };

@@ -3,6 +3,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const http = require("http");
 const { Server } = require("socket.io");
+const passport = require("passport");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -35,6 +36,8 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.json());
 db.connect();
 
