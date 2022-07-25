@@ -21,6 +21,7 @@ const homeRouter = require(`${__dirname}/routes/home.route`);
 const logoutRouter = require(`${__dirname}/routes/logout.route`);
 const registerRouter = require(`${__dirname}/routes/register.route`);
 const infoRouter = require(`${__dirname}/routes/info.route`);
+const randomNumbersRouter = require(`${__dirname}/routes/random.route`);
 const db = require(`${__dirname}/db`);
 
 const app = express();
@@ -52,6 +53,7 @@ app.use("/login", loginRouter);
 app.use("/home", homeRouter);
 app.use("/logout", logoutRouter);
 app.use("/api/productos-test", albumsRouter);
+app.use("/api/randoms", randomNumbersRouter);
 
 io.on("connection", (socket) => {
   handleAllChat(socket);
