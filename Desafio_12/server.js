@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const express = require("express");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -5,6 +6,9 @@ const http = require("http");
 const { Server } = require("socket.io");
 const passport = require("passport");
 const dotenv = require("dotenv");
+const yargs = require("yargs/yargs");
+const { hideBin } = require("yargs/helpers");
+const argv = yargs(hideBin(process.argv)).argv;
 dotenv.config();
 
 const {
@@ -22,7 +26,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-const PORT = 8080;
+const PORT = argv.port;
 
 app.use(
   session({
