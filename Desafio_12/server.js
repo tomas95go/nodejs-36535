@@ -27,7 +27,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-const PORT = argv.port;
+const PORT = argv.port || 8080;
 
 app.use(
   session({
