@@ -28,7 +28,7 @@ http {
     default_type application/octet-stream;
 
     upstream node_app {
-        server 127.0.0.1:8081;
+        server 127.0.0.1:8081 weight=3;
         server 127.0.0.1:8082;
         server 127.0.0.1:8083;
         server 127.0.0.1:8084;
