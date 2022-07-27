@@ -50,9 +50,6 @@ app.use(passport.session());
 app.use(express.json());
 db.connect();
 
-app.get("/datos", (req, res) => {
-  res.send(`<h1>Datos</h1>`);
-});
 app.use("/info", infoRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);

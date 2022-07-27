@@ -1,6 +1,9 @@
 const express = require("express");
 const path = require("path");
 const { fork } = require("child_process");
+const yargs = require("yargs/yargs");
+const { hideBin } = require("yargs/helpers");
+const argv = yargs(hideBin(process.argv)).argv;
 const randomNumbersRouter = express.Router();
 
 randomNumbersRouter.get("/", (request, response) => {
@@ -10,7 +13,7 @@ randomNumbersRouter.get("/", (request, response) => {
 
     forked.on("message", (result) => {
       response.status(200).json({
-        message: "Números aleatorios recuperados con éxito",
+        message: `Números aleatorios recuperados con éxito: ${argv.port}}`,
         resultado: result,
       });
     });
