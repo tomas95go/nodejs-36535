@@ -2,6 +2,7 @@ const express = require("express");
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
+const numCPUs = require("os").cpus().length;
 const infoRouter = express.Router();
 
 infoRouter.get("/", (request, response) => {
@@ -16,6 +17,7 @@ infoRouter.get("/", (request, response) => {
         port: argv.port,
         memory: process.memoryUsage(),
         folder: __dirname,
+        cpus: numCPUs,
       },
     });
   } catch (error) {

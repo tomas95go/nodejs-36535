@@ -9,6 +9,9 @@ const dotenv = require("dotenv");
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
+const cluster = require("cluster");
+const { fork } = require("child_process");
+const numCPUs = require("os").cpus().length;
 dotenv.config();
 
 const {
@@ -47,6 +50,9 @@ app.use(passport.session());
 app.use(express.json());
 db.connect();
 
+app.get("/datos", (req, res) => {
+  res.send(`<h1>Datos</h1>`);
+});
 app.use("/info", infoRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
@@ -60,6 +66,18 @@ io.on("connection", (socket) => {
   handleChatMessage(socket, io);
 });
 
-server.listen(PORT, () => {
-  console.log(`Corriendo en el puerto: ${PORT}. URL: http://localhost:${PORT}`);
-});
+if (cluster.isPrimary && argv.mode === "cluster") {
+  console.log("Inicializando en modo cluster");
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+  cluster.on("exit", (worker, code, signal) => {
+    console.log(`Worker: ${worker.process.pid} died`);
+  });
+} else {
+  server.listen(PORT, () => {
+    console.log(
+      `Corriendo en el puerto: ${PORT}. URL: http://localhost:${PORT}. Worker: ${process.pid}`
+    );
+  });
+}
