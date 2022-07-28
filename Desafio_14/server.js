@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const express = require("express");
 const compression = require("compression");
-const winston = require("winston");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const http = require("http");
@@ -16,6 +15,7 @@ const { fork } = require("child_process");
 const numCPUs = require("os").cpus().length;
 dotenv.config();
 
+const logger = require(`${__dirname}/helpers/winston.helper`);
 const {
   handleChatMessage,
   handleAllChat,
@@ -35,14 +35,6 @@ const io = new Server(server);
 
 const PORT = argv.port || 8080;
 
-const logger = winston.createLogger({
-  format: winston.format.combine(
-    winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-    winston.format.prettyPrint()
-  ),
-  transports: [new winston.transports.Console()],
-});
-
 app.use(
   session({
     store: MongoStore.create({
@@ -56,9 +48,11 @@ app.use(
 );
 
 app.use((request, response, next) => {
+  //loggea todas las peticiones al sv
   logger.log("info", `Petición recibida: ${request.method} - ${request.path}`);
   next();
 });
+
 app.use(compression());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -72,6 +66,14 @@ app.use("/home", homeRouter);
 app.use("/logout", logoutRouter);
 app.use("/api/productos-test", albumsRouter);
 app.use("/api/randoms", randomNumbersRouter);
+
+app.use("*", (request, response) => {
+  //loggea todas las peticiones al sv que no hagan match a una ruta.
+  logger.log("warn", `Petición recibida: ${request.method} - ${request.path}`);
+  response.status(404).json({
+    message: "La ruta solicitada no existe",
+  });
+});
 
 io.on("connection", (socket) => {
   handleAllChat(socket);
