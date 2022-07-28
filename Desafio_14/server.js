@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 const express = require("express");
+const compression = require("compression");
+const winston = require("winston");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const http = require("http");
@@ -33,6 +35,14 @@ const io = new Server(server);
 
 const PORT = argv.port || 8080;
 
+const logger = winston.createLogger({
+  format: winston.format.combine(
+    winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+    winston.format.prettyPrint()
+  ),
+  transports: [new winston.transports.Console()],
+});
+
 app.use(
   session({
     store: MongoStore.create({
@@ -45,6 +55,11 @@ app.use(
   })
 );
 
+app.use((request, response, next) => {
+  logger.log("info", `Petición recibida: ${request.method} - ${request.path}`);
+  next();
+});
+app.use(compression());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
