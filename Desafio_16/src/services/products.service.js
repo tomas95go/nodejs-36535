@@ -17,8 +17,8 @@ class ProductsService {
     return await this.productsDao.getAll();
   }
   async save(product) {
-    await this.productsDao.save(product);
-    return product;
+    const newProduct = await this.productsDao.save(product);
+    return newProduct;
   }
 }
 

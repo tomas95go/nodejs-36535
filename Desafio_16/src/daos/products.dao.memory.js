@@ -19,7 +19,8 @@ class ProductsDaoMemory {
     return this.products;
   }
   async save(product) {
-    return this.products.push(product);
+    this.products.push(product);
+    return product;
   }
 }
 

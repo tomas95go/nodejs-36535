@@ -2,7 +2,9 @@ class PersistenceFactory {
   static async getPersistence() {
     try {
       if (process.env.PERSISTANCE === "MONGO") {
-        return;
+        const ProductsDaoMongo = require(`${__dirname}/products.dao.mongo`);
+        const ProductsDaoMongoInstance = new ProductsDaoMongo();
+        return ProductsDaoMongoInstance;
       }
 
       if (process.env.PERSISTANCE === "MEMORY") {
