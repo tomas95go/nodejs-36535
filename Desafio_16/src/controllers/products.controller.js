@@ -27,7 +27,22 @@ async function getAll(request, response) {
   }
 }
 
-async function save(request, response) {}
+async function save(request, response) {
+  try {
+    const newProduct = request.body;
+    const savedProduct = await productServiceInstance.save(newProduct);
+    const { id, name, description, price } = savedProduct;
+    const formattedProduct = new ProductsDto(id, name, description, price);
+    return response.status(200).json({
+      message: "Productos agregado con éxito",
+      formattedProduct,
+    });
+  } catch (error) {
+    return response.status(404).json({
+      message: "Hubo un error al guardar el nuevo producto",
+    });
+  }
+}
 
 module.exports = {
   getAll,

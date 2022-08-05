@@ -9,5 +9,6 @@ const productsController = require(path.join(
 ));
 
 productsRouter.get("/", productsController.getAll);
+productsRouter.post("/", productsController.save);
 
 module.exports = productsRouter;
