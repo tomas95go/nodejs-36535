@@ -1,10 +1,13 @@
+const path = require("path");
 const express = require("express");
 const productsRouter = express.Router();
 
-productsRouter.get("/", (request, response) => {
-  response.status(200).json({
-    message: "Get en productsRouter",
-  });
-});
+const productsController = require(path.join(
+  __dirname,
+  "..",
+  "controllers/products.controller"
+));
+
+productsRouter.get("/", productsController.getAll);
 
 module.exports = productsRouter;
