@@ -48,11 +48,11 @@ async function update(request, response) {
   try {
     const id = Number(request.params.id);
     const newProductData = request.body;
-    const savedProduct = await productServiceInstance.update(
+    const updatedProduct = await productServiceInstance.update(
       id,
       newProductData
     );
-    const { name, description, price } = savedProduct;
+    const { name, description, price } = updatedProduct;
     const formattedProduct = new ProductsDto(id, name, description, price);
     return response.status(200).json({
       message: "Producto modificado con éxito",
@@ -83,7 +83,7 @@ async function softDelete(request, response) {
     });
   } catch (error) {
     return response.status(404).json({
-      message: "Hubo un error al modificar el producto",
+      message: "Hubo un error al eliminar el producto",
     });
   }
 }

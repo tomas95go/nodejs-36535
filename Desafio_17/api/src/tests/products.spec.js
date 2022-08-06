@@ -55,4 +55,13 @@ describe("Products API", () => {
     );
     expect(response.body.formattedProduct.price).to.equal(editedProduct.price);
   });
+  it("Should soft delete a product", async () => {
+    const response = await request(app)
+      .delete(`/api/products/1`)
+      .set("Content-Type", "application/json");
+    expect(response.status).to.equal(200);
+    expect(response.body.message).to.equal("Producto eliminado con éxito");
+    expect(response.body.formattedProduct).to.be.an("object");
+    expect(response.body.formattedProduct.active).to.be.false;
+  });
 });
