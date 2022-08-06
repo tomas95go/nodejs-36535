@@ -6,7 +6,10 @@
   "scripts": {
     "install-api": "cd api && npm install",
     "install-client": "cd client && npm install",
-    "install-fullstack": "npm run install-client && npm run install-api"
+    "install-fullstack": "npm run install-client && npm run install-api",
+    "start-dev-api": "cd api && npm run dev",
+    "start-dev-client": "cd client && npm run dev",
+    "start-dev-fullstack": "npm run start-dev-api & npm run start-dev-client"
   },
   "repository": {
     "type": "git",
