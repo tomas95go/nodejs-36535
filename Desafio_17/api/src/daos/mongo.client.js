@@ -7,9 +7,11 @@ class MongoClient {
   }
   connect = async () => {
     try {
-      await this.client.connect(process.env.MONGO_CONNECTION_STRING, {
-        dbName: process.env.MONGO_DATABASE,
-      });
+      if (process.env.PERSISTANCE === "MONGO") {
+        return await this.client.connect(process.env.MONGO_CONNECTION_STRING, {
+          dbName: process.env.MONGO_DATABASE,
+        });
+      }
     } catch (error) {
       throw `Hubo un error al conectarse al cliente de MongoDB: ${error}`;
     }

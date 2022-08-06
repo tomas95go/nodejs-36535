@@ -17,9 +17,7 @@ Por favor, leer antes de ejecutar.
 ## Ejemplo de .env
 
 ```
-PERSISTANCE="MEMORY" o PERSISTANCE="MONGO"
-MONGO_CONNECTION_STRING="my_mongo_connection_string"
-MONGO_DATABASE="my_mongo_database"
+PERSISTANCE="MEMORY"
 ```
 
 ## Ejemplo de post
