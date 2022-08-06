@@ -6,27 +6,17 @@ Por favor, leer antes de ejecutar.
 
 1. Clonar el repositorio.
 2. Dirigirse a la carpeta Desafio_17.
-3. Ejecutar "npm install" para instalar las dependecias.
+3. Ejecutar "install-fullstack" para instalar las dependecias del cliente + api.
 4. Configurar el .env como en el ejemplo.
-5. Ejecutar "npm run dev" o "npm start".
-6. Con Postman u otro software similar, probar los siguientes end points:
-   - 6.1. Obtener todos los productos: GET => http://localhost:8080/api/products
-   - 6.2. Agregar un nuevo producto: POST => http://localhost:8080/api/products
-     - 6.2.1. Configurar el POST con el JSON de ejemplo
+5. Ejecutar "start-dev-fullstack" o "start-fullstack" Para iniciar el cliente + la api, advertencia:
+   - Estos scripts tienen dificultades en Windows, seguir los siguientes pasos:
+     - Abrir una terminal y ejecutar "start-dev-api" o "start-api".
+     - Abrir otra terminal y ejecutar "start-dev-client" o "start-client".
+6. Al iniciar el cliente se muestra por consola el resultado de las peticiones AXIOS.
+7. Ejecutar "npm run test-api" para ejecutar los tests de la API.
 
 ## Ejemplo de .env
 
 ```
 PERSISTANCE="MEMORY"
-```
-
-## Ejemplo de post
-
-```
-{
-        "id": 3,
-        "name": "Piso",
-        "description": "Para pararse encima",
-        "price": 50
-}
 ```
