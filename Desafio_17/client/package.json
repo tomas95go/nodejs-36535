@@ -1,0 +1,29 @@
+{
+  "name": "desafio_17",
+  "version": "1.0.0",
+  "description": "Cliente hecho con Express.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomas95go/nodejs-36535.git"
+  },
+  "keywords": [
+    "NodeJS"
+  ],
+  "author": "Gonzalez Oviedo Tomas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomas95go/nodejs-36535/issues"
+  },
+  "homepage": "https://github.com/tomas95go/nodejs-36535#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
