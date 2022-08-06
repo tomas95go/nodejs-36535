@@ -12,6 +12,8 @@ async function show() {
   console.log(addedProduct);
   const updated = await productsRequests.httpPutUpdateProduct();
   console.log(updated);
+  const deleted = await productsRequests.httpDeleteProduct();
+  console.log(deleted);
 }
 
 module.exports = {

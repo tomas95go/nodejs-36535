@@ -39,8 +39,19 @@ async function httpPutUpdateProduct() {
   }
 }
 
+async function httpDeleteProduct() {
+  try {
+    const response = await axios.delete(`${API_URL}/1`);
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    throw `Hubo un error al intentar borrar un producto: ${error}`;
+  }
+}
+
 module.exports = {
   httpGetAllProducts,
   httpPostNewProduct,
   httpPutUpdateProduct,
+  httpDeleteProduct,
 };
