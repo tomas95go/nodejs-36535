@@ -10,6 +10,8 @@ async function show() {
   console.log(products);
   const addedProduct = await productsRequests.httpPostNewProduct();
   console.log(addedProduct);
+  const updated = await productsRequests.httpPutUpdateProduct();
+  console.log(updated);
 }
 
 module.exports = {

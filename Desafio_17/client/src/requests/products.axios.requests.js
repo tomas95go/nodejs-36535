@@ -25,7 +25,22 @@ async function httpPostNewProduct() {
   }
 }
 
+async function httpPutUpdateProduct() {
+  try {
+    const response = await axios.put(`${API_URL}/1`, {
+      name: "Editado",
+      description: "Editado",
+      price: 10,
+    });
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    throw `Hubo un error al intentar editar un producto: ${error}`;
+  }
+}
+
 module.exports = {
   httpGetAllProducts,
   httpPostNewProduct,
+  httpPutUpdateProduct,
 };
