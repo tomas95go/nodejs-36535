@@ -22,6 +22,17 @@ class ProductsDaoMemory {
     this.products.push(product);
     return product;
   }
+  async getById(id) {
+    const product = this.products.find((product) => product.id === id);
+    return product;
+  }
+  async update(id, newProductData) {
+    const updatedProduct = await this.getById(id);
+    updatedProduct.name = newProductData.name;
+    updatedProduct.description = newProductData.description;
+    updatedProduct.price = newProductData.price;
+    return updatedProduct;
+  }
 }
 
 module.exports = ProductsDaoMemory;

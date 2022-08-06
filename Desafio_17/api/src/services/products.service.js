@@ -20,6 +20,10 @@ class ProductsService {
     const newProduct = await this.productsDao.save(product);
     return newProduct;
   }
+  async update(id, newProductData) {
+    const updatedProduct = await this.productsDao.update(id, newProductData);
+    return updatedProduct;
+  }
 }
 
 module.exports = ProductsService;
