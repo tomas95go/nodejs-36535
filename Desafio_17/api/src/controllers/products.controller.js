@@ -65,8 +65,32 @@ async function update(request, response) {
   }
 }
 
+async function softDelete(request, response) {
+  try {
+    const id = Number(request.params.id);
+    const deletedProduct = await productServiceInstance.softDelete(id);
+    const { name, description, price, active } = deletedProduct;
+    const formattedProduct = new ProductsDto(
+      id,
+      name,
+      description,
+      price,
+      active
+    );
+    return response.status(200).json({
+      message: "Producto eliminado con éxito",
+      formattedProduct,
+    });
+  } catch (error) {
+    return response.status(404).json({
+      message: "Hubo un error al modificar el producto",
+    });
+  }
+}
+
 module.exports = {
   getAll,
   save,
   update,
+  softDelete,
 };

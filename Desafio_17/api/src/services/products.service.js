@@ -24,6 +24,10 @@ class ProductsService {
     const updatedProduct = await this.productsDao.update(id, newProductData);
     return updatedProduct;
   }
+  async softDelete(id) {
+    const deletedProduct = await this.productsDao.softDelete(id);
+    return deletedProduct;
+  }
 }
 
 module.exports = ProductsService;

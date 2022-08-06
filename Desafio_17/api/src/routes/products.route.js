@@ -11,5 +11,6 @@ const productsController = require(path.join(
 productsRouter.get("/", productsController.getAll);
 productsRouter.post("/", productsController.save);
 productsRouter.put("/:id", productsController.update);
+productsRouter.delete("/:id", productsController.softDelete);
 
 module.exports = productsRouter;

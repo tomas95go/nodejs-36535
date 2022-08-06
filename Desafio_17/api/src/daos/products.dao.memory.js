@@ -33,6 +33,11 @@ class ProductsDaoMemory {
     updatedProduct.price = newProductData.price;
     return updatedProduct;
   }
+  async softDelete(id) {
+    const deletedProduct = await this.getById(id);
+    deletedProduct.active = false;
+    return deletedProduct;
+  }
 }
 
 module.exports = ProductsDaoMemory;
