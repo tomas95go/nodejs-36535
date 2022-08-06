@@ -2,7 +2,7 @@ const path = require("path");
 const productsRequests = require(path.join(
   __dirname,
   "..",
-  "requests/products.requests"
+  "requests/products.axios.requests"
 ));
 
 async function show() {
