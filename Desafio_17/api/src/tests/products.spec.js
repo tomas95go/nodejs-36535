@@ -31,4 +31,28 @@ describe("Products API", () => {
     );
     expect(response.body.formattedProduct.price).to.equal(newProduct.price);
   });
+  it("Should edit a product", async () => {
+    const editedProduct = {
+      id: 7,
+      name: "Piso",
+      description: "Para pararse encima",
+      price: 50,
+    };
+    const response = await request(app)
+      .put(`/api/products/${editedProduct.id}`)
+      .send({
+        name: editedProduct.name,
+        description: editedProduct.description,
+        price: editedProduct.price,
+      })
+      .set("Content-Type", "application/json");
+    expect(response.status).to.equal(200);
+    expect(response.body.message).to.equal("Producto modificado con éxito");
+    expect(response.body.formattedProduct).to.be.an("object");
+    expect(response.body.formattedProduct.name).to.equal(editedProduct.name);
+    expect(response.body.formattedProduct.description).to.equal(
+      editedProduct.description
+    );
+    expect(response.body.formattedProduct.price).to.equal(editedProduct.price);
+  });
 });
