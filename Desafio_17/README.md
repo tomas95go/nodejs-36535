@@ -15,7 +15,9 @@ Por favor, leer antes de ejecutar.
 6. Al iniciar el cliente se muestra por consola el resultado de las peticiones AXIOS.
 7. Ejecutar "npm run test-api" para ejecutar los tests de la API.
 
-## Ejemplo de .env
+## Ejemplo de .env para la API
+
+- Guardar el .env en: /api
 
 ```
 PERSISTANCE="MEMORY"
