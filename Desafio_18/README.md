@@ -8,6 +8,7 @@ Por favor, leer antes de ejecutar.
 2. Dirigirse a la carpeta Desafio_18.
 3. Ejecutar npm install.
 4. Ejecutar npm install o npm run dev.
+5. Abrir la URL http://localhost:8080/graphql/albums en su navegador, ejecutar las queries/mutations listadas abajo.
 
 ## Queries y Mutations
 
