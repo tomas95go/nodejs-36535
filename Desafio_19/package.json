@@ -1,0 +1,28 @@
+{
+  "name": "desafio_19",
+  "version": "1.0.0",
+  "description": "API REST con Fastify",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomas95go/nodejs-36535.git#main"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "graphql"
+  ],
+  "author": "Gonzalez Oviedo Tomas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomas95go/nodejs-36535/issues"
+  },
+  "homepage": "https://github.com/tomas95go/nodejs-36535/tree/main#readme",
+  "dependencies": {
+    "fastify": "^4.5.2"
+  }
+}
