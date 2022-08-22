@@ -6,3 +6,38 @@ Por favor, leer antes de ejecutar.
 
 1. Clonar el repositorio.
 2. Dirigirse a la carpeta Desafio_18.
+3. Ejecutar npm install.
+4. Ejecutar npm install o npm run dev.
+
+## Queries y Mutations
+
+```
+{
+  getAll {
+    id,
+    artist,
+    album,
+    active
+  }
+}
+
+mutation {
+  createOne(input: {artist: "Eminem", album: "Encore", active: true}) {
+    id
+  }
+}
+
+mutation {
+  updateOne(id: 2, input: {artist: "Eminem", album: "MyUpdatedAlbum", active: true}) {
+    id
+  }
+}
+
+mutation {
+  deleteOne(id: 2) {
+    id
+  }
+}
+
+
+```

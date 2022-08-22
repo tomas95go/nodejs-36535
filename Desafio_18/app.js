@@ -4,7 +4,6 @@ const app = express();
 
 const albumHandler = require(path.join(__dirname, "handlers/albums.handler"));
 
-app.use(express.json());
-app.use("/api/albums", albumHandler);
+app.use("/graphql/albums", albumHandler);
 
 module.exports = app;
