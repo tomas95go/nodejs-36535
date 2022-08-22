@@ -20,6 +20,23 @@ async function routes(fastify) {
       .code(200)
       .send({ message: "Nuevo de álbum agregado con éxito", albums });
   });
+  fastify.put("/albums/:id", async (request, reply) => {
+    const id = Number(request.params.id);
+    const newData = request.body;
+    const { artist, album } = newData;
+    const updatedAlbum = albums.find((album) => album.id === id);
+    updatedAlbum.artist = artist;
+    updatedAlbum.album = album;
+    reply
+      .code(200)
+      .send({ message: "Álbum actualizado con éxito", updatedAlbum });
+  });
+  fastify.delete("/albums/:id", async (request, reply) => {
+    const id = Number(request.params.id);
+    const deletedAlbum = albums.find((album) => album.id === id);
+    deletedAlbum.active = false;
+    reply.code(200).send({ message: "Álbum borrado con éxito", deletedAlbum });
+  });
 }
 
 module.exports = routes;
