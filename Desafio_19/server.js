@@ -1,9 +1,13 @@
-// Require the framework and instantiate it
+const path = require("path");
+
+/**
+ * @type {import('fastify').FastifyInstance} Instance of Fastify
+ */
+
 const fastify = require("fastify")({ logger: true });
 
-// Declare a route
-fastify.get("/", async (request, reply) => {
-  return { hello: "world" };
+fastify.register(require(path.join(__dirname, "routes/v1/albums")), {
+  prefix: "v1",
 });
 
 // Run the server!
