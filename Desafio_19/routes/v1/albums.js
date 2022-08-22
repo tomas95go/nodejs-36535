@@ -11,6 +11,15 @@ async function routes(fastify) {
       .code(200)
       .send({ message: "Lista de álbumes recuperada con éxito", albums });
   });
+  fastify.post("/albums", async (request, reply) => {
+    const newAlbum = request.body;
+    const newId = albums.length + 1;
+    newAlbum.id = newId;
+    albums.push(newAlbum);
+    reply
+      .code(200)
+      .send({ message: "Nuevo de álbum agregado con éxito", albums });
+  });
 }
 
 module.exports = routes;
